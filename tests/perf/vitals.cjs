@@ -37,7 +37,7 @@ async function measure(browser, path, mobile) {
 ;(async () => {
   const browser = await chromium.launch()
   const rows = []
-  for (const mobile of [true, false]) for (const path of ['/ar', '/en', '/en/projects/creative-mark', '/ar/work']) rows.push(await measure(browser, path, mobile))
+  for (const mobile of [true, false]) for (const path of ['/ar', '/en', '/en/projects/creative-mark', '/ar/work', '/en/about']) rows.push(await measure(browser, path, mobile))
   await browser.close()
   console.table(rows)
   require('fs').writeFileSync('qa-output/vitals.json', JSON.stringify(rows, null, 2))
