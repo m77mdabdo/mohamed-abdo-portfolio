@@ -33,6 +33,21 @@ final class Tr
         return is_array($value) && is_string($value[$locale] ?? null) && trim($value[$locale]) !== '';
     }
 
+    /**
+     * Canonical form used in snapshots: {"en","ar"} trimmed strings in a fixed order, or null when both are empty.
+     * Keeps "has this changed?" comparisons honest regardless of how a form submitted the value.
+     */
+    public static function normalize(mixed $value): ?array
+    {
+        if (! is_array($value)) {
+            return null;
+        }
+        $en = trim((string) ($value['en'] ?? ''));
+        $ar = trim((string) ($value['ar'] ?? ''));
+
+        return $en === '' && $ar === '' ? null : ['en' => $en, 'ar' => $ar];
+    }
+
     /** Builds a translatable value from two strings. */
     public static function make(string $en, string $ar): array
     {
