@@ -12,6 +12,11 @@
             @if($email)
                 <div class="email-line"><code>{{ $email }}</code>@if($s->filled('copy_label'))<button class="pill" type="button" data-copy="{{ $email }}" data-copied="{{ $s->t('copied_label') }}">{{ $s->t('copy_label') }}</button>@endif</div>
             @endif
+            @if($phone = \App\Support\Phone::tel($identity['phone'] ?? ''))
+                <div class="email-line"><a class="phone-link" href="{{ $phone }}" dir="ltr">{{ \App\Support\Phone::display($identity['phone']) }}</a>
+                    @if($wa = \App\Support\Phone::whatsapp($identity['phone'] ?? '', tr($identity['whatsapp_message'] ?? null)))<a class="pill" href="{{ $wa }}" target="_blank" rel="noopener noreferrer">WhatsApp ↗</a>@endif
+                </div>
+            @endif
             <div class="pillrow">
                 @foreach($identity['social'] ?? [] as $link)
                     @if($link['url'])<a class="pill" href="{{ $link['url'] }}" target="_blank" rel="noopener noreferrer" data-magnetic>{{ $link['label'] }} ↗</a>@endif

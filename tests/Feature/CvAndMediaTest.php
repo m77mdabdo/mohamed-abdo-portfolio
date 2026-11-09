@@ -38,6 +38,10 @@ class CvAndMediaTest extends TestCase
         $response = $this->get('/en/cv/download')->assertOk();
         $this->assertStringContainsString('application/pdf', $response->headers->get('Content-Type'));
         $this->assertStringContainsString('mohamed-abdo-CV.pdf', $response->headers->get('Content-Disposition'));
+        $this->assertStringStartsWith('attachment', $response->headers->get('Content-Disposition'));
+        $view = $this->get('/en/cv/download?view=1')->assertOk();
+        $this->assertStringStartsWith('inline', $view->headers->get('Content-Disposition'));
+        $this->get('/ar/resume')->assertSee('عرض السيرة الذاتية')->assertSee('cv/download?view=1', false);
     }
 
     public function test_dangerous_files_are_refused(): void

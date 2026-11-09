@@ -69,6 +69,7 @@ final class ReferencePages
         $cv = ['type' => 'cv', 'data' => [
             'eyebrow' => $b('Résumé', 'السيرة الذاتية'),
             'title' => $b('Experience & skills', 'الخبرة والمهارات'),
+            'view_label' => $b('View CV', 'عرض السيرة الذاتية'),
             'download_label' => $b('Download CV (PDF)', 'تحميل السيرة الذاتية (PDF)'),
             'pending_label' => $b('CV available on request', 'السيرة الذاتية متاحة عند الطلب'),
             'pending_note' => $b('Email me and I will send the latest version.', 'راسلني وسأرسل لك أحدث نسخة.'),
@@ -115,7 +116,7 @@ final class ReferencePages
             ['key' => 'home', 'slug' => 'home', 'title' => $b('Home', 'الرئيسية'), 'sections' => [$hero, $statement, $about, $reel, $index(false), $services, $cv, $band, $quotes, $process, $contact]],
             ['key' => 'work', 'slug' => 'work', 'title' => $b('Work', 'الأعمال'), 'sections' => [
                 $header($b('Selected work', 'أعمال مختارة'), $b('Built end to end, from idea to launch', 'من الفكرة إلى الإطلاق')),
-                $index(true), $cta,
+                $reel, $index(true), $cta,
             ]],
             ['key' => 'about', 'slug' => 'about', 'title' => $b('About', 'عنّي'), 'sections' => [
                 $header($b('About', 'عنّي'), $b('Mohamed Abdo', 'محمد عبده')),
@@ -138,13 +139,13 @@ final class ReferencePages
         $b = self::b(...);
         $item = fn (array $label, array $link) => ['label' => $label, 'link' => $link, 'visible' => true, 'children' => []];
 
-        // Header and drawer jump to the chapters of the home page, like the original one-page design.
+        // Header and drawer open the standalone pages; the home page keeps every chapter in one long scroll.
         $chapters = [
-            $item($b('Work', 'الأعمال'), self::to('home', 'work')),
-            $item($b('About', 'عنّي'), self::to('home', 'about')),
-            $item($b('Services', 'الخدمات'), self::to('home', 'services')),
-            $item($b('Résumé', 'السيرة الذاتية'), self::to('home', 'cv')),
-            $item($b('Contact', 'تواصل'), self::to('home', 'contact')),
+            $item($b('Work', 'الأعمال'), self::to('work')),
+            $item($b('About', 'عنّي'), self::to('about')),
+            $item($b('Services', 'الخدمات'), self::to('services')),
+            $item($b('Résumé', 'السيرة الذاتية'), self::to('cv')),
+            $item($b('Contact', 'تواصل'), self::to('contact')),
         ];
 
         return [

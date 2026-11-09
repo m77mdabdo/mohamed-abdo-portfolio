@@ -83,7 +83,8 @@ final class MediaLibrary
         ]);
 
         if ($kind === 'image') {
-            OptimizeImage::dispatch($media->id)->afterCommit();
+            // After the response (no background worker needed); a running queue worker is not required.
+            OptimizeImage::dispatchAfterResponse($media->id);
         }
 
         return $media;

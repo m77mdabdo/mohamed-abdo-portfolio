@@ -2,6 +2,7 @@
 
 namespace App\Content;
 
+use App\Support\Phone;
 use App\Support\RichTitle;
 use App\Support\Tr;
 
@@ -75,6 +76,7 @@ final class SeoBuilder
             'jobTitle' => ($seo['job_title'] ?? '') ?: RichTitle::plain(Tr::pick($identity['role'] ?? null, $locale)),
             'url' => $url,
             'email' => ($identity['email'] ?? '') ? 'mailto:'.$identity['email'] : null,
+            'telephone' => ($n = Phone::international($identity['phone'] ?? '')) ? '+'.$n : null,
             'image' => $portrait?->url(),
             'address' => ['@type' => 'PostalAddress', 'addressLocality' => Tr::pick($identity['city_short'] ?? null, $locale)],
             'sameAs' => array_values(array_filter(array_column($identity['social'] ?? [], 'url'))) ?: null,

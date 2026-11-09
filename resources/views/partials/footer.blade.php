@@ -11,6 +11,9 @@
             @if($email)
                 <a class="foot-mail keep" dir="ltr" href="mailto:{{ $email }}" data-magnetic data-strength="0.15">{{ $email }}<span aria-hidden="true">↗</span></a>
             @endif
+            @if($tel = \App\Support\Phone::tel($identity['phone'] ?? ''))
+                <a class="foot-phone keep" dir="ltr" href="{{ $tel }}">{{ \App\Support\Phone::display($identity['phone']) }}</a>
+            @endif
         </div>
         <div class="foot-cols">
             <nav aria-label="{{ $site->ui('a11y.footer_nav') }}">

@@ -43,6 +43,10 @@ final class SettingsGroups
                 Field::text('timezone_label', 'Time zone label (e.g. GMT+3)')->max(12)->default('GMT+3'),
                 Field::text('availability', 'Availability badge')->translatable()->max(90),
                 Field::email('email', 'Public e-mail'),
+                Field::text('phone', 'Phone / WhatsApp number (e.g. +966 53 751 4589)')->max(30),
+                Field::toggle('whatsapp_button', 'Floating WhatsApp button on every page'),
+                Field::text('whatsapp_message', 'First message typed for the visitor in WhatsApp')->translatable()->max(160),
+                Field::text('whatsapp_label', 'Floating button label')->translatable()->max(40),
                 Field::media('portrait', 'Portrait (cut-out, transparent background)'),
                 Field::items('social', 'Social links', [
                     Field::text('label', 'Name (e.g. GitHub)')->max(30),
