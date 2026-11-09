@@ -1,0 +1,222 @@
+<?php
+
+/*
+ * Initial content, taken from the original design (src/content.ts of the reference build).
+ * Project facts and figures are the owner's own statements; nothing here was added or verified anew.
+ * Imported once by ReferenceContentSeeder; after that the dashboard is the source of truth.
+ */
+
+$b = fn (string $en, string $ar) => ['en' => $en, 'ar' => $ar];
+
+return [
+    'identity' => [
+        'name' => $b('Mohamed Abdo', 'محمد عبده'),
+        'role' => $b('Software Engineer · Laravel', 'مهندس برمجيات · Laravel'),
+        'city' => $b('Riyadh, Saudi Arabia', 'الرياض، المملكة العربية السعودية'),
+        'city_short' => $b('Riyadh', 'الرياض'),
+        'timezone' => 'Asia/Riyadh',
+        'timezone_label' => 'GMT+3',
+        'availability' => $b('Software Engineer · Laravel · Riyadh', 'مهندس برمجيات · Laravel · الرياض'),
+        'email' => 'mohamedabdo.dev@gmail.com',
+        'social' => [
+            ['label' => 'GitHub', 'url' => 'https://github.com/m77mdabdo'],
+            ['label' => 'LinkedIn', 'url' => 'https://www.linkedin.com/in/mohamed-abdo-94a9872a1'],
+            ['label' => 'Instagram', 'url' => 'https://www.instagram.com/mhmd.abdo15'],
+        ],
+    ],
+    'header' => [
+        'logo_tagline' => $b('Software Engineer', 'مهندس برمجيات'),
+        'menu_label' => $b('Menu', 'القائمة'),
+        'close_label' => $b('Close', 'إغلاق'),
+        'skip_label' => $b('Skip to content', 'تخطَّ إلى المحتوى'),
+        'switch_label' => $b('Switch language', 'تبديل اللغة'),
+    ],
+    'footer' => [
+        'cta' => $b('Have a project in mind?', 'عندك مشروع في بالك؟'),
+        'nav_title' => $b('Navigate', 'الصفحات'),
+        'live_title' => $b('Live projects', 'مشاريع منشورة'),
+        'show_live' => true,
+        'social_title' => $b('Elsewhere', 'تابعني'),
+        'time_title' => $b('Local time', 'التوقيت المحلي'),
+        'giant_name' => $b('MOHAMED ABDO', 'محمد عبده'),
+        'edition' => $b('2026 ©', '2026 ©'),
+        'rights' => $b('Designed & engineered by Mohamed Abdo', 'تصميم وهندسة محمد عبده'),
+        'top_label' => $b('Back to top', 'للأعلى'),
+    ],
+    'seo' => [
+        'site_title' => $b('Mohamed Abdo — Software Engineer', 'محمد عبده — مهندس برمجيات'),
+        'description' => $b(
+            'Mohamed Abdo — software engineer in Riyadh. Laravel back-ends, bilingual Arabic/English products and admin dashboards.',
+            'محمد عبده — مهندس برمجيات في الرياض. أنظمة Laravel، ومنتجات ثنائية اللغة بالعربية والإنجليزية، ولوحات تحكم.'
+        ),
+        'indexable' => true,
+        'job_title' => 'Software Engineer',
+    ],
+    'appearance' => [
+        'accent' => '#C15B46',
+        'signal' => '#49DDE4',
+        'motion' => 'full',
+        'scene_3d' => true,
+        'smooth_scroll' => true,
+        'custom_cursor' => true,
+        'grain' => true,
+        'loader' => true,
+        'greetings' => array_map(fn ($g) => ['text' => $g], ['مرحباً', 'Hello', 'Bonjour', 'Hola', 'Ciao', 'नमस्ते', '你好', 'Merhaba', 'أهلاً بك']),
+    ],
+    'contact' => ['recipient' => '', 'notify' => true],
+    'project_labels' => [
+        'back' => $b('Back to projects', 'العودة للمشاريع'),
+        'next' => $b('Next project', 'المشروع التالي'),
+        'role' => $b('Role', 'الدور'),
+        'role_default' => $b('Full-stack engineering', 'هندسة كاملة (Full-stack)'),
+        'status' => $b('Status', 'الحالة'),
+        'client' => $b('Client', 'العميل'),
+        'languages' => $b('Languages', 'اللغات'),
+        'languages_default' => $b('Arabic & English', 'العربية والإنجليزية'),
+        'stack' => $b('Stack', 'التقنيات'),
+        'year' => $b('Year', 'السنة'),
+        'challenge' => $b('The brief', 'التحدي'),
+        'solution' => $b('The solution', 'الحل'),
+        'features' => $b('Highlights', 'أبرز ما فيه'),
+        'shots' => $b('Inside the product', 'من داخل المشروع'),
+        'visit' => $b('Visit live site', 'زيارة الموقع'),
+        'repo' => $b('View on GitHub', 'عرض على GitHub'),
+    ],
+
+    'services' => [
+        ['number' => '01', 'title' => $b('Corporate websites', 'مواقع الشركات'), 'description' => $b('Websites that present your business with clarity, load fast and turn visitors into qualified enquiries.', 'مواقع تقدّم شركتك بوضوح، وتعمل بسرعة، وتحوّل الزائر إلى عميل محتمل.')],
+        ['number' => '02', 'title' => $b('E-commerce', 'التجارة الإلكترونية'), 'description' => $b('Complete stores — catalogue, variants, checkout, orders, invoices — built to grow with your range.', 'متاجر متكاملة — كتالوج، وخيارات منتجات، وإتمام شراء، وطلبات، وفواتير — قابلة للنمو مع منتجاتك.')],
+        ['number' => '03', 'title' => $b('Dashboards & CMS', 'لوحات التحكم وإدارة المحتوى'), 'description' => $b('Full control over your content, with roles, permissions, approvals and a record of every change.', 'تحكّم كامل في المحتوى، مع أدوار وصلاحيات واعتماد للنشر وسجل لكل تعديل.')],
+        ['number' => '04', 'title' => $b('Custom platforms', 'المنصات المخصصة'), 'description' => $b('Booking, lead capture, cost estimators and internal tools — shaped around how your business actually works.', 'أنظمة حجز، وجمع عملاء، وحاسبات تكلفة، وأدوات داخلية — مصممة حول طريقة عمل شركتك فعلياً.')],
+    ],
+    'process' => [
+        ['title' => $b('Discovery', 'الاكتشاف'), 'description' => $b('Goals, audience, scope and success criteria — agreed before any code is written.', 'نحدّد الأهداف والجمهور والنطاق ومعايير النجاح قبل كتابة أي كود.')],
+        ['title' => $b('Architecture', 'الهندسة'), 'description' => $b('Data model, user roles and system flows, designed to last beyond version one.', 'نموذج البيانات وأدوار المستخدمين ومسارات النظام، مصممة لتدوم بعد الإصدار الأول.')],
+        ['title' => $b('Iterative build', 'التطوير المرحلي'), 'description' => $b('Delivered in reviewed stages, so you see real progress and shape it as we go.', 'تسليم على مراحل مُراجَعة، ترى فيها تقدّماً حقيقياً وتشارك في توجيهه.')],
+        ['title' => $b('Launch & care', 'الإطلاق والمتابعة'), 'description' => $b('Deployment, performance and security checks, documentation and a clean handover.', 'نشر، وفحص للأداء والأمان، وتوثيق، وتسليم واضح.')],
+    ],
+    'experience' => [
+        ['period' => $b('Nov 2025 — Present', 'نوفمبر 2025 — الآن'), 'role' => $b('Software Engineer', 'مهندس برمجيات'), 'organization' => $b('Creative Mark · Riyadh', 'كرييتف مارك · الرياض'), 'description' => $b('Corporate website, content platform and internal tools for a consultancy that helps investors establish companies in Saudi Arabia.', 'الموقع الرسمي ومنصة المحتوى والأدوات الداخلية لشركة استشارية تساعد المستثمرين على تأسيس شركاتهم في المملكة.'), 'is_current' => true],
+        ['period' => $b('Ongoing', 'مستمر'), 'role' => $b('Independent projects', 'مشاريع مستقلة'), 'organization' => $b('Saudi Arabia & the Gulf', 'السعودية والخليج'), 'description' => $b('Platforms for fashion retail, clinical nutrition, business media, photography, natural stone and professional services.', 'منصات لتجارة الأزياء، والتغذية العلاجية، والإعلام الاقتصادي، والتصوير، والأحجار الطبيعية، والخدمات المهنية.'), 'is_current' => false],
+    ],
+    'skills' => [
+        ['name' => $b('Back-end', 'الواجهة الخلفية'), 'items' => ['Laravel', 'PHP 8', 'REST APIs', 'MVC', 'SOLID']],
+        ['name' => $b('Data', 'قواعد البيانات'), 'items' => ['MySQL', 'MariaDB', 'Eloquent']],
+        ['name' => $b('Dashboards', 'لوحات التحكم'), 'items' => ['Filament', 'Livewire', 'Spatie']],
+        ['name' => $b('Front-end', 'الواجهة الأمامية'), 'items' => ['React', 'Inertia', 'Blade', 'Tailwind CSS', 'Alpine.js', 'GSAP']],
+        ['name' => $b('Quality & delivery', 'الجودة والنشر'), 'items' => ['Git', 'Vite', 'Hostinger']],
+    ],
+    'languages' => [
+        ['name' => $b('Arabic', 'العربية'), 'level' => $b('Native', 'اللغة الأم')],
+        ['name' => $b('English', 'الإنجليزية'), 'level' => $b('Professional', 'مستوى مهني')],
+    ],
+    // Present in the original content but not displayed there; kept, and shown only if the owner switches them on.
+    'stats' => [
+        ['value' => '27', 'label' => $b('public repositories on GitHub', 'مستودعاً عاماً على GitHub')],
+        ['value' => '4600', 'label' => $b('automated tests across these projects', 'اختبار آلي في هذه المشاريع')],
+        ['value' => '6', 'label' => $b('industries served', 'قطاعات مختلفة')],
+    ],
+    'cube' => [
+        ['name' => 'Laravel', 'role' => $b('Back-end framework', 'إطار الواجهة الخلفية')],
+        ['name' => 'PHP 8', 'role' => $b('Core language', 'لغة البرمجة')],
+        ['name' => 'MySQL', 'role' => $b('Data', 'قواعد البيانات')],
+        ['name' => 'Filament', 'role' => $b('Dashboards', 'لوحات التحكم')],
+        ['name' => 'React', 'role' => $b('Interfaces', 'الواجهات التفاعلية')],
+        ['name' => 'Tailwind CSS', 'role' => $b('Design systems', 'أنظمة التصميم')],
+    ],
+    'band' => [
+        ['Laravel', 'PHP 8', 'MySQL', 'MariaDB', 'Eloquent', 'REST APIs', 'MVC', 'SOLID'],
+        ['Filament', 'Livewire', 'React', 'Inertia', 'TypeScript', 'Blade', 'Spatie'],
+        ['Tailwind CSS', 'Alpine.js', 'GSAP', 'JavaScript', 'Vite', 'Git', 'Hostinger'],
+    ],
+    'categories' => [
+        ['slug' => 'corporate', 'name' => $b('Corporate websites', 'مواقع الشركات')],
+        ['slug' => 'ecommerce', 'name' => $b('E-commerce', 'التجارة الإلكترونية')],
+        ['slug' => 'dashboards', 'name' => $b('Dashboards & CMS', 'لوحات التحكم وإدارة المحتوى')],
+        ['slug' => 'platforms', 'name' => $b('Custom platforms', 'المنصات المخصصة')],
+    ],
+
+    'projects' => [
+        [
+            'slug' => 'creative-mark', 'title' => $b('Creative Mark', 'كرييتف مارك'), 'kind' => $b('Corporate website & CMS', 'موقع شركة ونظام إدارة محتوى'), 'year' => '2026', 'status' => $b('Company project', 'مشروع الشركة'), 'color' => '#C7A56A',
+            'stack' => ['Laravel 13', 'React 19', 'Inertia', 'Filament 5', 'Tailwind 4'], 'gallery' => ['d' => 4, 'm' => 3], 'featured' => true, 'categories' => ['corporate', 'dashboards'],
+            'summary' => $b('The corporate platform of a Saudi business-formation consultancy: a cinematic black-and-gold website in six languages, and the dashboard that runs it.', 'المنصة الرسمية لشركة استشارات تأسيس أعمال سعودية: موقع سينمائي بهوية سوداء وذهبية بست لغات، ولوحة التحكم التي تديره.'),
+            'brief' => $b('Present a premium consultancy to investors from many countries — and let the team manage every page, in every language, without touching code.', 'تقديم شركة استشارية راقية لمستثمرين من دول متعددة — وتمكين الفريق من إدارة كل صفحة، بكل لغة، دون المساس بالكود.'),
+            'built' => $b('A Laravel and React site with a landmark slideshow, an interactive map of the 13 Saudi regions and investor guides, backed by a Filament dashboard with roles, permissions and two-factor authentication. Drafts go live only after a content manager approves them.', 'موقع بـ Laravel وReact يضم عرضاً لأبرز معالم المملكة، وخريطة تفاعلية لمناطقها الـ13، وأدلة للمستثمرين، تديره لوحة Filament بأدوار وصلاحيات وتحقق بخطوتين. ولا تُنشر المسودات إلا بعد اعتماد مدير المحتوى.'),
+            'features' => [$b('Six languages, with full right-to-left support', 'ست لغات مع دعم كامل للاتجاه من اليمين لليسار'), $b('Interactive map of the 13 regions', 'خريطة تفاعلية لمناطق المملكة الـ13'), $b('Approval workflow before publishing', 'مسار اعتماد قبل النشر'), $b('379 automated tests', '379 اختباراً آلياً')],
+            'repo' => 'https://github.com/m77mdabdo/creative_mark',
+        ],
+        [
+            'slug' => 'dar-el-jamila', 'title' => $b('Dar El-Jamila', 'دار الجميلة'), 'kind' => $b('Luxury fashion e-commerce', 'متجر أزياء فاخر'), 'year' => '2026', 'status' => $b('Live', 'منشور'), 'color' => '#60172A',
+            'stack' => ['Laravel 13', 'MySQL 8', 'Tailwind', 'Alpine.js', 'PWA'], 'gallery' => ['d' => 4, 'm' => 3], 'featured' => true, 'categories' => ['ecommerce'],
+            'summary' => $b('A complete e-commerce platform for a modest-fashion design house — storefront, back office and operations, built from scratch.', 'منصة تجارة إلكترونية متكاملة لدار أزياء محتشمة — واجهة المتجر، ولوحة الإدارة، والعمليات، مبنية من الصفر.'),
+            'brief' => $b('A couture house needed a store that feels as considered as its pieces, and a back office its team could run day to day — not a theme on top of someone else\'s platform.', 'دار أزياء احتاجت متجراً يليق بعناية قطعها، ولوحة إدارة يعمل عليها فريقها يومياً — لا قالباً جاهزاً فوق منصة أخرى.'),
+            'built' => $b('Every layer built on Laravel: a product-variant engine, orders and inventory, PDF invoices, order tracking and a role-based admin. Installable as an app, and running in production.', 'كل طبقة مبنية على Laravel: محرّك لخيارات المنتجات، وإدارة الطلبات والمخزون، وفواتير PDF، وتتبّع للطلبات، ولوحة إدارة بالأدوار. قابل للتثبيت كتطبيق، ويعمل فعلياً.'),
+            'features' => [$b('Product variants and inventory', 'خيارات المنتجات والمخزون'), $b('PDF invoices and order tracking', 'فواتير PDF وتتبّع الطلبات'), $b('Role-based back office', 'لوحة إدارة بالأدوار'), $b('874 automated tests', '874 اختباراً آلياً')],
+            'live' => 'https://dareljamila.com', 'repo' => 'https://github.com/m77mdabdo/Dar_El-',
+        ],
+        [
+            'slug' => 'rehlet-sehha', 'title' => $b('Rehlet Sehha', 'رحلة صحة'), 'kind' => $b('Clinical nutrition platform', 'منصة تغذية علاجية'), 'year' => '2026', 'status' => $b('Live', 'منشور'), 'color' => '#0E2E4D',
+            'stack' => ['Laravel', 'MySQL', 'Filament', 'Hostinger'], 'gallery' => ['d' => 4, 'm' => 3], 'featured' => true, 'categories' => ['platforms'],
+            'summary' => $b('Website, online booking and staff panel for a clinical nutrition practice — live at rehletsehha.com.', 'موقع وحجز إلكتروني ولوحة للفريق لعيادة تغذية علاجية — يعمل على rehletsehha.com.'),
+            'brief' => $b('Patients should be able to understand the services and book in under a minute — without an account — while the clinic keeps full control of its schedule and content.', 'أن يفهم المريض الخدمات ويحجز في أقل من دقيقة — دون إنشاء حساب — مع احتفاظ العيادة بالتحكم الكامل في مواعيدها ومحتواها.'),
+            'built' => $b('A step-by-step booking wizard driven by working hours, buffers and blocked slots, with double booking prevented at the database level. Articles cannot be published without a named clinical reviewer.', 'معالج حجز خطوة بخطوة يعتمد على ساعات العمل والفواصل والأوقات المحجوبة، مع منع الحجز المزدوج على مستوى قاعدة البيانات. ولا يُنشر أي مقال دون مراجع طبي مسمّى.'),
+            'features' => [$b('Booking wizard with live availability', 'معالج حجز بمواعيد متاحة لحظياً'), $b('Staff panel for appointments and content', 'لوحة للفريق للمواعيد والمحتوى'), $b('Privacy-first handling of health data', 'حماية بيانات المرضى في كل طبقة'), $b('938 automated tests', '938 اختباراً آلياً')],
+            'live' => 'https://rehletsehha.com', 'repo' => 'https://github.com/m77mdabdo/Rehlet_Sehha',
+        ],
+        [
+            'slug' => 'anas-fareed', 'title' => $b('Anas Fareed', 'أنس فريد'), 'kind' => $b('Photographer website & studio dashboard', 'موقع مصوّر ولوحة إدارة للاستوديو'), 'year' => '2026', 'status' => $b('Client project', 'مشروع لعميل'), 'color' => '#0A0A0A',
+            'client' => $b('Commercial & advertising photographer', 'مصوّر تجاري وإعلاني'),
+            'stack' => ['Laravel 12', 'Filament 5', 'Livewire 4', 'MySQL', 'Vite'], 'gallery' => ['d' => 2, 'm' => 2], 'featured' => true, 'categories' => ['corporate', 'dashboards'],
+            'summary' => $b('The website of a commercial photographer and the dashboard he runs it from — on a computer or a phone.', 'موقع مصوّر تجاري، ولوحة التحكم التي يدير منها كل شيء — من الكمبيوتر أو الهاتف.'),
+            'brief' => $b('For a photographer, the images are the brand. The site had to step back and let the work lead — and every sentence on it had to be editable by the owner.', 'عند المصوّر، الصور هي العلامة. كان على الموقع أن يترك الأعمال تتصدّر — وأن يستطيع صاحبه تعديل كل جملة فيه بنفسه.'),
+            'built' => $b('Projects told as photographic stories, cinematic lighting galleries, services, a journal and enquiries. Uploaded photographs are turned into AVIF, WebP and JPEG versions in the background, and the dashboard requires two-factor sign-in.', 'مشاريع تُعرض كقصص مصوّرة، ومعارض بإضاءة سينمائية، وخدمات، ومدوّنة، وطلبات تواصل. تتحوّل الصور المرفوعة تلقائياً إلى صيغ AVIF وWebP وJPEG في الخلفية، والدخول للوحة التحكم بتحقق إلزامي بخطوتين.'),
+            'features' => [$b('Every text on the site editable from the dashboard', 'كل نص في الموقع قابل للتعديل من اللوحة'), $b('Automatic image optimisation', 'تحسين تلقائي للصور'), $b('Built-in help centre for the owner', 'مركز مساعدة مدمج لصاحب الموقع'), $b('1,452 automated tests', '1,452 اختباراً آلياً')],
+        ],
+        [
+            'slug' => 'masar', 'title' => $b('Masar', 'مسار'), 'kind' => $b('Business news platform', 'منصة إعلام اقتصادي'), 'year' => '2026', 'status' => $b('In development', 'قيد التطوير'), 'color' => '#002E24',
+            'stack' => ['Laravel 12', 'Filament 4', 'MySQL', 'Tailwind'], 'gallery' => ['d' => 4, 'm' => 3], 'categories' => ['platforms', 'dashboards'],
+            'summary' => $b('An editorial platform for Arab business readers that turns news into context — from information to understanding to opportunity.', 'منصة تحريرية لقارئ الأعمال العربي تحوّل الخبر إلى سياق — من المعلومة إلى الفهم إلى الفرصة.'),
+            'brief' => $b('Readers do not lack news; they lack context. Every story had to explain why it matters and where the opportunity is.', 'القارئ لا ينقصه الخبر، بل ينقصه السياق. كان على كل قصة أن تشرح لماذا تهم وأين الفرصة.'),
+            'built' => $b('Four editorial questions are built into the data model as required fields — a story that does not answer "why does it matter?" cannot be published. A nineteen-section front page, six editions and an editorial pipeline in Filament.', 'أربعة أسئلة تحريرية مدمجة في نموذج البيانات كحقول إلزامية — فلا تُنشر قصة لا تجيب عن "لماذا يهم؟". واجهة من تسعة عشر قسماً، وست إصدارات، ومسار تحريري كامل في Filament.'),
+            'features' => [$b('Editorial rules enforced in the database', 'قواعد تحريرية مفروضة في قاعدة البيانات'), $b('Six editions, each with its own script', 'ست إصدارات لكلٍّ منها خطّها'), $b('Writing → fact-check → publish pipeline', 'مسار كتابة ← تدقيق ← نشر')],
+            'repo' => 'https://github.com/m77mdabdo/masar',
+        ],
+        [
+            'slug' => 'riyadat-aljawhara', 'title' => $b('Riyadat Al-Jawhara', 'ريادة الجوهرة الإبداعية'), 'kind' => $b('Natural stone website, catalogue & CRM', 'موقع وكتالوج ونظام عملاء لشركة أحجار'), 'year' => '2026', 'status' => $b('Pre-launch', 'قبل الإطلاق'), 'color' => '#16130F',
+            'stack' => ['Laravel 12', 'Filament 3', 'Livewire 3', 'Tailwind', 'Alpine.js'], 'gallery' => ['d' => 4, 'm' => 3], 'categories' => ['corporate', 'dashboards'],
+            'summary' => $b('Website, stone catalogue and lead CRM for a company that supplies and installs marble, granite and natural stone across Saudi Arabia.', 'موقع وكتالوج أحجار ونظام متابعة عملاء لشركة توريد وتركيب الرخام والجرانيت والأحجار الطبيعية في المملكة.'),
+            'brief' => $b('Show every stone and every finished project in a way that sells — and know exactly which page each quote request came from.', 'عرض كل حجر وكل مشروع منفّذ بطريقة تقنع العميل — ومعرفة الصفحة التي جاء منها كل طلب عرض سعر.'),
+            'built' => $b('A filterable catalogue where each stone has specifications, a gallery and a downloadable PDF spec sheet; a portfolio with before/after sliders; and quote requests and WhatsApp clicks tracked in a built-in CRM. Menus, sections, texts and SEO are all editable without code.', 'كتالوج قابل للتصفية لكل حجر فيه مواصفات ومعرض صور وملف PDF قابل للتحميل؛ ومعرض مشاريع بمقارنة قبل وبعد؛ وطلبات أسعار ونقرات واتساب تُتابَع في نظام عملاء مدمج. والقوائم والأقسام والنصوص وإعدادات SEO كلها تُعدّل دون كود.'),
+            'features' => [$b('Stone catalogue with PDF spec sheets', 'كتالوج أحجار بملفات مواصفات PDF'), $b('Before / after project sliders', 'مقارنة قبل وبعد للمشاريع'), $b('Lead CRM with source tracking', 'متابعة العملاء ومصدر كل طلب'), $b('Lighthouse 95+ · 469 automated tests', 'Lighthouse 95+ · 469 اختباراً آلياً')],
+            'repo' => 'https://github.com/m77mdabdo/Riyadat_Al_Jawhara',
+        ],
+        [
+            'slug' => 'saudi-investment-check', 'title' => $b('Saudi Investment Check', 'فحص الاستثمار في السعودية'), 'kind' => $b('Event lead-capture experience', 'تجربة جمع عملاء للمعارض'), 'year' => '2026', 'status' => $b('Live', 'منشور'), 'color' => '#081224',
+            'stack' => ['Laravel 12', 'PHP 8.5', 'MySQL'], 'gallery' => ['d' => 3, 'm' => 3], 'categories' => ['platforms'],
+            'summary' => $b('Visitors scan a QR code at an exhibition stand and move through a cinematic opening straight into registration — sales see them instantly.', 'يمسح الزائر رمز QR في جناح المعرض، فينتقل عبر افتتاحية سينمائية مباشرة إلى التسجيل — ويراه فريق المبيعات فوراً.'),
+            'brief' => $b('Turn a busy exhibition stand into qualified leads, in seconds, on any phone.', 'تحويل زحام جناح المعرض إلى عملاء مؤهلين، في ثوانٍ، ومن أي هاتف.'),
+            'built' => $b('A scroll-driven sequence that zooms into the Kingdom Centre and dissolves into a four-field form. Each registration reaches the sales console and inbox immediately; an eight-question readiness assessment scores visitors as leads.', 'تسلسل يتفاعل مع التمرير يقترب من برج المملكة ثم يذوب في نموذج من أربعة حقول. يصل كل تسجيل إلى لوحة المبيعات وبريدها فوراً، واختبار جاهزية من ثمانية أسئلة يقيّم الزائرين كعملاء محتملين.'),
+            'features' => [$b('QR → cinematic opening → registration', 'QR ← افتتاحية سينمائية ← تسجيل'), $b('Instant sales notification', 'إشعار فوري لفريق المبيعات'), $b('Lead scoring assessment', 'اختبار لتقييم العملاء'), $b('175 automated tests', '175 اختباراً آلياً')],
+            'live' => 'https://investment.dareljamila.com', 'repo' => 'https://github.com/m77mdabdo/Saudi-Investment-Check',
+        ],
+        [
+            'slug' => 'brand-makers', 'title' => $b('Brand Makers', 'صنّاع العلامة التجارية'), 'kind' => $b('Company-formation platform', 'منصة تأسيس شركات'), 'year' => '2026', 'status' => $b('On GitHub', 'على GitHub'), 'color' => '#123C54',
+            'stack' => ['Laravel 12', 'Tailwind', 'Alpine.js'], 'gallery' => ['d' => 4, 'm' => 3], 'categories' => ['platforms', 'corporate'],
+            'summary' => $b('The full client journey for company formation in Saudi Arabia — from first visit to a delivered order.', 'رحلة العميل كاملة لتأسيس شركة في السعودية — من أول زيارة حتى تسليم الطلب.'),
+            'brief' => $b('Let founders estimate costs, choose a package and book a consultation on their own — while every lead reaches the team with its campaign source.', 'أن يحسب المؤسس التكلفة، ويختار باقته، ويحجز استشارته بنفسه — مع وصول كل عميل للفريق ومعه مصدر الحملة.'),
+            'built' => $b('A live cost estimator, package requests, consultation booking and private-code order tracking, all managed from a dashboard — every price and every slot editable without code.', 'حاسبة تكلفة لحظية، وطلبات باقات، وحجز استشارات، وتتبّع للطلبات برمز خاص، وكلها تُدار من لوحة تحكم — كل سعر وكل موعد قابل للتعديل دون كود.'),
+            'features' => [$b('Live cost estimator', 'حاسبة تكلفة لحظية'), $b('Consultation booking', 'حجز الاستشارات'), $b('Private-code order tracking', 'تتبّع الطلبات برمز خاص'), $b('366 automated tests', '366 اختباراً آلياً')],
+            'repo' => 'https://github.com/m77mdabdo/Brand_Makers',
+        ],
+        [
+            'slug' => 'cashier', 'title' => $b('Cashier System', 'نظام الكاشير'), 'kind' => $b('Restaurant point of sale', 'نظام نقاط بيع للمطاعم'), 'year' => '—', 'status' => $b('On GitHub', 'على GitHub'), 'color' => '#ABA6A3',
+            'stack' => ['JavaScript', 'MVC'], 'gallery' => null, 'categories' => ['platforms'],
+            'summary' => $b('Orders, kitchen, sales, purchases and invoices — a restaurant\'s full cycle in one system.', 'الطلبات والمطبخ والمبيعات والمشتريات والفواتير — دورة المطعم كاملة في نظام واحد.'),
+            'brief' => $b('One system for the counter, the kitchen and the accounts.', 'نظام واحد للكاشير والمطبخ والحسابات.'),
+            'built' => $b('An MVC application that follows each order from the counter to the kitchen to the printed invoice.', 'تطبيق بنمط MVC يتابع كل طلب من الكاشير إلى المطبخ حتى الفاتورة المطبوعة.'),
+            'features' => [$b('Orders routed to the kitchen', 'طلبات تصل مباشرة للمطبخ'), $b('Sales and purchases', 'المبيعات والمشتريات'), $b('Invoice printing', 'طباعة الفواتير')],
+            'repo' => 'https://github.com/m77mdabdo/SYSTEM_CASHIER-MVC',
+        ],
+    ],
+];
