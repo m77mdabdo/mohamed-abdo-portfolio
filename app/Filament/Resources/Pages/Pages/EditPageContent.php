@@ -42,6 +42,7 @@ use Illuminate\Validation\ValidationException;
  * new sections are added from the library. Saving keeps a draft; publishing puts it live.
  *
  * @property Page $record
+ * @property-read Schema $form
  */
 class EditPageContent extends ResourcePage
 {
@@ -57,7 +58,9 @@ class EditPageContent extends ResourcePage
 
     public function mount(int|string $record): void
     {
-        $this->record = $this->resolveRecord($record);
+        $resolved = $this->resolveRecord($record);
+        abort_unless($resolved instanceof Page, 404);
+        $this->record = $resolved;
         $this->reloadForm();
     }
 
@@ -149,12 +152,12 @@ class EditPageContent extends ResourcePage
             ->icon($type->icon())
             ->schema([
                 Hidden::make('uid'),
-                Grid::make(['default' => 1, 'md' => 3])->schema(array_values(array_filter([
+                Grid::make(['default' => 1, 'md' => 3])->schema(array_filter([
                     Toggle::make('visible')->label(__('Visible on the site'))->default(true)->inline(false),
                     TextInput::make('anchor')->label(__('Link name (#anchor)'))->prefix('#')->maxLength(60)->default($type->defaultAnchor())
                         ->helperText(__('Menus and buttons can jump to this section.'))->extraInputAttributes(['dir' => 'ltr']),
                     $type->presets() ? Select::make('preset')->label(__('Design'))->native(false)->options($type->presets())->default(array_key_first($type->presets())) : null,
-                ]))),
+                ])),
                 Group::make(FieldFormBuilder::components($type->fields(), 'data')),
             ]), array_values(app(SectionRegistry::class)->all()));
 

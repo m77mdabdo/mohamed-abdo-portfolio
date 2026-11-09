@@ -12,10 +12,11 @@ use Illuminate\Http\RedirectResponse;
 /** Shareable project pages: /{locale}/projects/{slug}. Renamed slugs answer with a 301 to the new address. */
 class ProjectController extends Controller
 {
-    public function __construct(private readonly Site $site) {}
+    private Site $site;
 
     public function show(string $locale, string $slug): View|RedirectResponse
     {
+        $this->site = app(Site::class); // request-scoped: resolved per call
         $project = $this->site->project($slug);
         if ($project === null) {
             $redirect = SlugRedirect::query()->where('kind', 'project')->where('old_slug', $slug)->first();

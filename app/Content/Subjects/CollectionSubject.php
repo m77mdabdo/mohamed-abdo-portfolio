@@ -5,6 +5,7 @@ namespace App\Content\Subjects;
 use App\Content\Collections;
 use App\Content\Contracts\ContentSubject;
 use App\Support\Tr;
+use Illuminate\Database\Eloquent\Model;
 
 final class CollectionSubject implements ContentSubject
 {
@@ -31,7 +32,7 @@ final class CollectionSubject implements ContentSubject
         $columns = Collections::columns($this->type);
 
         return $class::query()->orderBy('sort_order')->orderBy('id')->get()
-            ->map(fn ($row) => ['id' => $row->id] + array_map(
+            ->map(fn (Model $row) => ['id' => $row->getKey()] + array_map(
                 // translatable values in canonical form so key order or blank strings never count as a change
                 fn ($v) => is_array($v) && (array_key_exists('en', $v) || array_key_exists('ar', $v)) ? Tr::normalize($v) : $v,
                 $row->only($columns),
@@ -45,9 +46,9 @@ final class CollectionSubject implements ContentSubject
         $columns = Collections::columns($this->type);
         $ids = [];
         foreach ($snapshot as $row) {
-            $model = $class::query()->findOrNew($row['id'] ?? null);
+            $model = $class::query()->find($row['id'] ?? null) ?? new $class;
             if (! $model->exists && isset($row['id'])) {
-                $model->id = $row['id'];
+                $model->setAttribute('id', $row['id']);
             }
             foreach ($columns as $column) {
                 if (array_key_exists($column, $row)) {
@@ -55,7 +56,7 @@ final class CollectionSubject implements ContentSubject
                 }
             }
             $model->save();
-            $ids[] = $model->id;
+            $ids[] = $model->getKey();
         }
         if (Collections::prunes($this->type)) {
             $class::query()->whereNotIn('id', $ids)->delete();

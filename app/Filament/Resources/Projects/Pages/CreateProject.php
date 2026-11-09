@@ -3,6 +3,7 @@
 namespace App\Filament\Resources\Projects\Pages;
 
 use App\Filament\Resources\Projects\ProjectResource;
+use App\Models\Project;
 use Filament\Resources\Pages\CreateRecord;
 
 class CreateProject extends CreateRecord
@@ -20,7 +21,9 @@ class CreateProject extends CreateRecord
 
     protected function afterCreate(): void
     {
-        $this->syncRelations($this->record, $this->pendingRelations);
+        if ($this->record instanceof Project) {
+            $this->syncRelations($this->record, $this->pendingRelations);
+        }
     }
 
     protected function getRedirectUrl(): string

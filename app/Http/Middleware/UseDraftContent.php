@@ -18,7 +18,13 @@ class UseDraftContent
     {
         app()->instance(ContentReader::class, app(DraftReader::class));
 
-        $response = $next($request);
+        try {
+            $response = $next($request);
+        } finally {
+            // Never let the draft reader outlive this request (long-running workers, tests).
+            app()->forgetInstance(ContentReader::class);
+            app()->forgetScopedInstances();
+        }
         $response->headers->set('Cache-Control', 'no-store, private, max-age=0');
         $response->headers->set('X-Robots-Tag', 'noindex, nofollow, noarchive');
 

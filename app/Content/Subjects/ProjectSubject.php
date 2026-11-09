@@ -7,6 +7,7 @@ use App\Models\Category;
 use App\Models\Media;
 use App\Models\Project;
 use App\Models\ProjectMedia;
+use App\Models\ProjectTechnology;
 use App\Models\Technology;
 use App\Support\Tr;
 
@@ -45,7 +46,7 @@ final class ProjectSubject implements ContentSubject
             $out[$field] = ($out[$field] ?? '') === '' ? null : (string) $out[$field];
         }
         $out['categories'] = $p->categories->map(fn (Category $c) => ['id' => $c->id, 'slug' => $c->slug, 'name' => $c->name])->values()->all();
-        $out['stack'] = $p->stack->filter(fn ($row) => $row->technology)->map(fn ($row) => [
+        $out['stack'] = $p->stack->filter(fn (ProjectTechnology $row) => $row->technology !== null)->map(fn ($row) => [
             'id' => $row->technology->id,
             'name' => $row->technology->name,
             'icon' => $row->technology->icon,

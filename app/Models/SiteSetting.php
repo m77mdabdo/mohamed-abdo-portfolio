@@ -4,7 +4,11 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-/** One settings group (identity, seo, appearance, footer, contact, cv, ui) — working copy. */
+/**
+ * One settings group (identity, seo, appearance, footer, contact, cv, ui) — working copy.
+ *
+ * @property array<string, mixed> $data
+ */
 class SiteSetting extends Model
 {
     protected $guarded = ['id', 'lock_version'];

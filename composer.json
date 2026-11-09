@@ -80,6 +80,10 @@
         "lint": [
             "vendor/bin/pint --test",
             "vendor/bin/phpstan analyse --memory-limit=1G"
+        ],
+        "test:mariadb": [
+            "@php artisan config:clear --ansi",
+            "@php scripts/test-mariadb.php"
         ]
     },
     "extra": {

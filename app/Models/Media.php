@@ -10,6 +10,9 @@ use Illuminate\Support\Facades\Storage;
 /**
  * An uploaded file. Images get optimised WebP/AVIF copies in the background (variants);
  * the original stays as the fallback. Files live on the public disk under random names.
+ *
+ * @property array<string, string>|null $alt
+ * @property array<int, array{format: string, width: int, path: string}>|null $variants
  */
 class Media extends Model
 {
@@ -22,6 +25,7 @@ class Media extends Model
         return ['alt' => 'array', 'variants' => 'array', 'size' => 'integer', 'width' => 'integer', 'height' => 'integer'];
     }
 
+    /** @return BelongsTo<User, $this> */
     public function uploader(): BelongsTo
     {
         return $this->belongsTo(User::class, 'uploaded_by');

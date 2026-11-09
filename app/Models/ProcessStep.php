@@ -6,7 +6,12 @@ use App\Models\Concerns\HasTranslatableFields;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 
-/** Shared list row (published as one "collection:process_steps" subject). */
+/**
+ * Shared list row (published as one "collection:process_steps" subject).
+ *
+ * @property array<string, string> $title
+ * @property array<string, string> $description
+ */
 class ProcessStep extends Model
 {
     use HasTranslatableFields;

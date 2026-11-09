@@ -9,6 +9,19 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
+/**
+ * @property array<string, string> $title
+ * @property array<string, string> $kind
+ * @property array<string, string> $status_label
+ * @property array<string, string> $summary
+ * @property array<string, string>|null $brief
+ * @property array<string, string>|null $built
+ * @property array<int, array<string, string>>|null $features
+ * @property array<string, string>|null $client
+ * @property array<string, string>|null $role
+ * @property array<string, string>|null $languages
+ * @property array<string, mixed>|null $seo
+ */
 class Project extends Model
 {
     use HasTranslatableFields;
@@ -38,36 +51,43 @@ class Project extends Model
         });
     }
 
+    /** @return BelongsTo<Media, $this> */
     public function cover(): BelongsTo
     {
         return $this->belongsTo(Media::class, 'cover_media_id');
     }
 
+    /** @return BelongsTo<Project, $this> */
     public function nextProject(): BelongsTo
     {
         return $this->belongsTo(self::class, 'next_project_id');
     }
 
+    /** @return HasMany<ProjectMedia, $this> */
     public function gallery(): HasMany
     {
         return $this->hasMany(ProjectMedia::class)->orderBy('sort_order')->orderBy('id');
     }
 
+    /** @return HasMany<ProjectMedia, $this> */
     public function desktopShots(): HasMany
     {
         return $this->gallery()->where('kind', 'desktop');
     }
 
+    /** @return HasMany<ProjectMedia, $this> */
     public function mobileShots(): HasMany
     {
         return $this->gallery()->where('kind', 'mobile');
     }
 
+    /** @return BelongsToMany<Category, $this> */
     public function categories(): BelongsToMany
     {
         return $this->belongsToMany(Category::class)->orderBy('categories.sort_order');
     }
 
+    /** @return HasMany<ProjectTechnology, $this> */
     public function stack(): HasMany
     {
         return $this->hasMany(ProjectTechnology::class)->orderBy('sort_order')->orderBy('id');

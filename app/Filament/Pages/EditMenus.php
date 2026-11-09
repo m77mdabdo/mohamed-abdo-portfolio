@@ -32,6 +32,8 @@ use InvalidArgumentException;
 /**
  * Header, floating/mobile and footer menus. Each item links to a page, a section of a page, a project,
  * the CV, the e-mail or a checked web address; items can be hidden, reordered and have one level of sub-items.
+ *
+ * @property-read Schema $form
  */
 class EditMenus extends Page
 {

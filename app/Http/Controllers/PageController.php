@@ -12,10 +12,18 @@ use Illuminate\Http\RedirectResponse;
 
 class PageController extends Controller
 {
-    public function __construct(private readonly Site $site, private readonly PageRenderer $renderer) {}
+    // Site is request-scoped (published or preview content), so it is resolved per call — never kept on the
+    // controller, which the router may reuse between requests in long-running workers.
+    private Site $site;
+
+    private function boot(): void
+    {
+        $this->site = app(Site::class);
+    }
 
     public function home(string $locale): View
     {
+        $this->boot();
         $page = $this->site->page('home');
         abort_if($page === null, 404);
 
@@ -24,6 +32,7 @@ class PageController extends Controller
 
     public function show(string $locale, string $slug): View|RedirectResponse
     {
+        $this->boot();
         $page = $this->site->pageBySlug($slug);
         if ($page === null) {
             $redirect = SlugRedirect::query()->where('kind', 'page')->where('old_slug', $slug)->first();
@@ -41,9 +50,11 @@ class PageController extends Controller
 
     public function render(array $page, string $locale): View
     {
+        $this->boot();
+
         return view('pages.page', [
             'page' => $page,
-            'sections' => $this->renderer->sections($page, $locale),
+            'sections' => app(PageRenderer::class)->sections($page, $locale),
             'locale' => $locale,
             'site' => $this->site,
             'alternates' => $this->alternates($page),

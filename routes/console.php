@@ -1,8 +1,7 @@
 <?php
 
-use Illuminate\Foundation\Inspiring;
-use Illuminate\Support\Facades\Artisan;
+use Illuminate\Support\Facades\Schedule;
 
-Artisan::command('inspire', function () {
-    $this->comment(Inspiring::quote());
-})->purpose('Display an inspiring quote');
+// Needs one cron entry (or `php artisan schedule:work` locally) — see README › Running.
+Schedule::command('portfolio:backup')->dailyAt('03:30')->withoutOverlapping();
+Schedule::command('queue:prune-failed --hours=720')->weekly();

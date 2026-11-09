@@ -5,7 +5,11 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
-/** Immutable published snapshot. Never updated after insert. */
+/**
+ * Immutable published snapshot. Never updated after insert.
+ *
+ * @property array<string, mixed> $snapshot
+ */
 class ContentRevision extends Model
 {
     public const UPDATED_AT = null;
@@ -17,6 +21,7 @@ class ContentRevision extends Model
         return ['snapshot' => 'array', 'version' => 'integer', 'created_at' => 'datetime'];
     }
 
+    /** @return BelongsTo<User, $this> */
     public function publisher(): BelongsTo
     {
         return $this->belongsTo(User::class, 'published_by');

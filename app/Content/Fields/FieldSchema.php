@@ -180,7 +180,7 @@ final class FieldSchema
                     self::linkRules($key.'.*.link'),
                 ),
                 Field::ITEMS => array_merge([$key => ['nullable', 'array', 'max:'.$field->maxItems]], self::rules($field->children, $key.'.*')),
-                default => [$key => array_values(array_filter([$field->required ? 'required' : 'nullable', 'string', $field->max ? 'max:'.$field->max : null]))],
+                default => [$key => $field->max ? [$field->required ? 'required' : 'nullable', 'string', 'max:'.$field->max] : [$field->required ? 'required' : 'nullable', 'string']],
             });
         }
 

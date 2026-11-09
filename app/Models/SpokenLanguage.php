@@ -6,7 +6,12 @@ use App\Models\Concerns\HasTranslatableFields;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 
-/** Shared list row (published as one "collection:spoken_languages" subject). */
+/**
+ * Shared list row (published as one "collection:spoken_languages" subject).
+ *
+ * @property array<string, string> $name
+ * @property array<string, string> $level
+ */
 class SpokenLanguage extends Model
 {
     use HasTranslatableFields;

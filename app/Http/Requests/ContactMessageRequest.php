@@ -30,7 +30,7 @@ class ContactMessageRequest extends FormRequest
             'project_type' => ['nullable', 'string', 'max:120'],
             'message' => ['nullable', 'string', 'max:5000'],
             'submission_key' => ['required', 'uuid'],
-            'website' => ['nullable', 'string', 'max:0'], // honeypot: real people never see this field
+            'website' => ['nullable', 'string', 'max:500'], // honeypot: real people never see it; filled = spam, dropped in the controller
         ];
     }
 

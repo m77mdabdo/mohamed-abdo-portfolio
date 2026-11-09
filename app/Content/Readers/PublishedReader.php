@@ -15,7 +15,8 @@ final class PublishedReader implements ContentReader
     public function get(string $subject): ?array
     {
         return Cache::rememberForever(ContentCache::subjectKey($subject), function () use ($subject) {
-            return ContentRevision::query()->where('subject', $subject)->orderByDesc('version')->first()?->snapshot ?? false;
+            // false (not null) marks "never published", so the miss is cached too
+            return ContentRevision::query()->where('subject', $subject)->orderByDesc('version')->first()->snapshot ?? false;
         }) ?: null;
     }
 

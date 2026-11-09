@@ -6,7 +6,12 @@ use App\Models\Concerns\HasTranslatableFields;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 
-/** Shared list row (published as one "collection:testimonials" subject). */
+/**
+ * Shared list row (published as one "collection:testimonials" subject).
+ *
+ * @property array<string, string>|null $role
+ * @property array<string, string> $quote
+ */
 class Testimonial extends Model
 {
     use HasTranslatableFields;
