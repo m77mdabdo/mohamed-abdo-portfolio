@@ -31,8 +31,8 @@ final class ReferencePages
             'title' => $b('I design and build web products that *elevate brands*.', "أصمّم وأطوّر منتجات ويب\n*ترتقي بعلامتك*"),
             'subtitle' => $b('Full-stack Laravel engineer based in Riyadh. Corporate websites, e-commerce and custom platforms — from data architecture to launch, with dashboards your team can run on its own.', 'مهندس Full-Stack متخصص في Laravel من الرياض. مواقع شركات، ومتاجر إلكترونية، ومنصات مخصصة — من هندسة البيانات حتى الإطلاق، مع لوحات تحكم يديرها فريقك باستقلالية.'),
             'buttons' => [
-                ['label' => $b('View my work', 'استعرض أعمالي'), 'style' => 'solid', 'link' => self::to('home', 'work')],
-                ['label' => $b('Résumé', 'السيرة الذاتية'), 'style' => 'ghost', 'link' => self::to('home', 'cv')],
+                ['label' => $b('View my work', 'استعرض أعمالي'), 'style' => 'solid', 'link' => self::to('work')],
+                ['label' => $b('Résumé', 'السيرة الذاتية'), 'style' => 'ghost', 'link' => self::to('cv')],
             ],
             'scroll_label' => $b('Scroll', 'مرّر'),
             'show_scene' => true,
