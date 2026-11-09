@@ -12,6 +12,7 @@ No marketing text, image or link is hard-coded in templates. The only fixed stri
 | Element | Where | Store | Who | Test |
 | --- | --- | --- | --- | --- |
 | Name, job title, city, short city, time zone + label, availability, public e-mail | Settings › Identity & social links | `site_settings[identity]` | E | NavigationAndTextsTest |
+| Phone, floating WhatsApp button (on/off, label, first message) | Settings › Identity & social links | `identity.phone`, `whatsapp_*` | E | PhoneAndWhatsappTest |
 | Portrait (hero, CV card, structured data) | Settings › Identity › Portrait | `identity.portrait` → `media` | E | CvAndMediaTest (usage) |
 | Social links (header drawer, contact, footer, JSON-LD sameAs) | Settings › Identity › Social links | `identity.social[]` | E | SeoAndLinksTest |
 | Logo tagline, menu/close labels, skip link, language-switch label | Navigation & texts › Header & menu labels | `site_settings[header]` | E | NavigationAndTextsTest |
@@ -32,7 +33,7 @@ deleted, given a link name (#anchor) and, where offered, a design preset. New se
 | Page | Sections (visual order) |
 | --- | --- |
 | Home `/` | Hero · Statement · About + cube · Work reel · Project list · Services · Résumé · Skills band · Testimonials (hidden until consented quotes exist) · Process · Contact |
-| Work `/work` | Page header · Project list (with category filter) · Call to action |
+| Work `/work` | Page header · Work reel · Project list (with category filter) · Call to action |
 | About `/about` | Page header · About + cube · Statement · Process · Call to action |
 | Services `/services` | Page header · Services · Process · Call to action |
 | Résumé `/resume` | Résumé · Skills band · Skill groups · Call to action |

@@ -115,7 +115,9 @@ const reel: Init = (el, ctx) => {
   const cards = $$(el, '.card'), n = cards.length
   const pad = (v: number) => String(v).padStart(2, '0')
   // Phones, tablets and reduced motion: a native horizontal scroller (touch friendly, no pinning).
-  const pinned = !ctx.reduced && innerWidth > 860 && ctx.fine
+  // Pinning a reel that is already on screen at load would shift visible content (layout shift), so a
+  // reel near the top of a page (e.g. the work page) also uses the native scroller.
+  const pinned = !ctx.reduced && innerWidth > 860 && ctx.fine && el.getBoundingClientRect().top > innerHeight * 0.75
   if (!pinned) {
     el.classList.add('native')
     ctx.on(track, 'scroll', () => {
@@ -130,7 +132,7 @@ const reel: Init = (el, ctx) => {
   const slide = gsap.to(track, {
     x: () => span() * ctx.dir, ease: 'none',
     scrollTrigger: {
-      trigger: el, start: 'top top', end: () => `+=${span()}`, pin: true, scrub: 1, anticipatePin: 1, invalidateOnRefresh: true,
+      trigger: el, start: 'top top', end: () => `+=${span()}`, pin: true, pinType: ctx.lenis ? 'transform' : 'fixed', scrub: 1, anticipatePin: 1, invalidateOnRefresh: true, // transform pinning: no layout shift with smooth scroll
       onUpdate: s => { if (bar) gsap.set(bar, { scaleX: s.progress }); if (num) num.textContent = pad(Math.min(n, Math.round(s.progress * (n - 1)) + 1)) },
     },
   })

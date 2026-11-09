@@ -5,8 +5,8 @@ local server `php artisan serve` (development mode, `APP_DEBUG=true`, no HTTP/2,
 
 | Check | Command | Result |
 | --- | --- | --- |
-| PHP tests (SQLite) | `composer test` | 44 tests: 43 passed, 1 skipped (backup test needs MariaDB) |
-| PHP tests (MariaDB test DB) | `composer test:mariadb` | 44 passed, 271 assertions |
+| PHP tests (SQLite) | `composer test` | 46 tests: 45 passed, 1 skipped (backup test needs MariaDB) |
+| PHP tests (MariaDB test DB) | `composer test:mariadb` | 46 passed, 288 assertions |
 | Static analysis | `vendor/bin/phpstan analyse` (Larastan level 5) | 0 errors |
 | Code style | `vendor/bin/pint --test` | passed |
 | TypeScript | `npm run typecheck` | 0 errors |
@@ -30,17 +30,20 @@ Lighthouse itself could not be run here (downloading it was blocked by the machi
 
 | Page | Mode | LCP | CLS | Interaction | Transfer |
 | --- | --- | --- | --- | --- | --- |
-| /ar | mobile (Moto G4, slow 4G, 4x CPU) | 2036 ms | 0.008 | 72 ms | 1262 KB |
-| /en | mobile (Moto G4, slow 4G, 4x CPU) | 1836 ms | 0.008 | 72 ms | 1247 KB |
-| /en/projects/creative-mark | mobile (Moto G4, slow 4G, 4x CPU) | 1352 ms | 0 | 56 ms | 631 KB |
-| /ar/work | mobile (Moto G4, slow 4G, 4x CPU) | 1388 ms | 0 | 56 ms | 444 KB |
-| /ar | desktop 1440 | 392 ms | 0.004 | 136 ms | 2404 KB |
-| /en | desktop 1440 | 272 ms | 0.001 | 136 ms | 2389 KB |
-| /en/projects/creative-mark | desktop 1440 | 128 ms | 0 | 56 ms | 825 KB |
-| /ar/work | desktop 1440 | 232 ms | 0 | 56 ms | 1549 KB |
+| /ar | mobile (Moto G4, slow 4G, 4x CPU) | 2124 ms | 0.008 | 80 ms | 1267 KB |
+| /en | mobile (Moto G4, slow 4G, 4x CPU) | 1912 ms | 0.008 | 72 ms | 1251 KB |
+| /en/projects/creative-mark | mobile (Moto G4, slow 4G, 4x CPU) | 1384 ms | 0 | 56 ms | 634 KB |
+| /ar/work | mobile (Moto G4, slow 4G, 4x CPU) | 2004 ms | 0 | 48 ms | 619 KB |
+| /en/about | mobile (Moto G4, slow 4G, 4x CPU) | 1188 ms | 0.057 | 64 ms | 477 KB |
+| /ar | desktop 1440 | 376 ms | 0.002 | 160 ms | 2409 KB |
+| /en | desktop 1440 | 284 ms | 0.001 | 176 ms | 2393 KB |
+| /en/projects/creative-mark | desktop 1440 | 148 ms | 0 | 56 ms | 829 KB |
+| /ar/work | desktop 1440 | 264 ms | 0 | 64 ms | 1803 KB |
+| /en/about | desktop 1440 | 172 ms | 0.016 | 64 ms | 494 KB |
 
 Targets (LCP ≤ 2.5 s, CLS ≤ 0.1, interaction ≤ 200 ms) are met in these lab conditions. Before preloading the
-first-screen fonts, Arabic pages showed CLS 0.18–0.23 on desktop; preloading fixed it.
+first-screen fonts, Arabic pages showed CLS 0.18–0.23 on desktop; preloading fixed it. A reel visible at load
+(work page) used to shift by 0.48 when it pinned; pinning now uses transforms (CLS 0).
 
 ## Visual comparison with the original
 

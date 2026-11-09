@@ -640,7 +640,13 @@ h1, h2, h3, .lead, .hero-sub, .kind, .case-body p { overflow-wrap: anywhere; }
 @media (max-width: 400px) { .hero .name .track { font-size: 92px; } .case-meta { grid-template-columns: 1fr 1fr; } }
 
 /* work reel without pinning: phones, tablets, reduced motion and no JavaScript */
-.reel.native .reel-in, .no-js .reel .reel-in { height: auto; padding-block: clamp(90px, 10vw, 140px) 40px; }
+/* touch screens and small screens get the native scroller from the first paint (no layout shift when JS starts) */
+@media (max-width: 860px), (hover: none) {
+  .reel .reel-in { height: auto; padding-block: clamp(90px, 10vw, 140px) 40px; }
+  .reel .track { width: auto; overflow-x: auto; scroll-snap-type: x mandatory; overscroll-behavior-x: contain; padding-bottom: 18px; scrollbar-width: thin; }
+  .reel .card { scroll-snap-align: start; }
+}
+.no-js .reel .reel-in { height: auto; padding-block: clamp(90px, 10vw, 140px) 40px; }
 .reel.native .track, .no-js .reel .track { width: auto; overflow-x: auto; scroll-snap-type: x mandatory; overscroll-behavior-x: contain; padding-bottom: 18px; scrollbar-width: thin; }
 .reel.native .card, .no-js .reel .card { scroll-snap-align: start; }
 .reel.native .card .media img { transform: none; }
