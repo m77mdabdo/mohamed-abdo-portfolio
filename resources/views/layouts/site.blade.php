@@ -46,6 +46,12 @@
     @else
         <link rel="icon" href="{{ asset('favicon.svg') }}" type="image/svg+xml">
     @endif
+    {{-- The fonts of the first screen are fetched early so the text does not jump when they arrive (CLS). --}}
+    @foreach($locale === 'ar'
+        ? ['alexandria/files/alexandria-arabic-800-normal', 'ibm-plex-sans-arabic/files/ibm-plex-sans-arabic-arabic-400-normal']
+        : ['bricolage-grotesque/files/bricolage-grotesque-latin-800-normal', 'instrument-sans/files/instrument-sans-latin-400-normal'] as $font)
+        <link rel="preload" as="font" type="font/woff2" crossorigin href="{{ Vite::asset('node_modules/@fontsource/'.$font.'.woff2') }}">
+    @endforeach
     {{-- Approved palette from Settings › Appearance (validated against a fixed list of colours). --}}
     <style nonce="{{ Vite::cspNonce() }}">:root{--brick:{{ $look['accent'] }};--turq:{{ $look['signal'] }}}</style>
     <script nonce="{{ Vite::cspNonce() }}">document.documentElement.classList.replace('no-js','js')</script>

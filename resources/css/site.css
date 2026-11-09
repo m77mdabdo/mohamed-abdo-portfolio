@@ -644,3 +644,7 @@ h1, h2, h3, .lead, .hero-sub, .kind, .case-body p { overflow-wrap: anywhere; }
 .reel.native .track, .no-js .reel .track { width: auto; overflow-x: auto; scroll-snap-type: x mandatory; overscroll-behavior-x: contain; padding-bottom: 18px; scrollbar-width: thin; }
 .reel.native .card, .no-js .reel .card { scroll-snap-align: start; }
 .reel.native .card .media img { transform: none; }
+
+/* Arabic letters must stay joined: no letter-spacing on Arabic text set in the mono face */
+html[lang="ar"] .logo i, html[lang="ar"] .me-tag, html[lang="ar"] .cv-id span, html[lang="ar"] .case-meta .tags span:lang(ar) { letter-spacing: 0; font-family: var(--body); }
+html[lang="ar"] .me-tag b { font-family: var(--mono); }
