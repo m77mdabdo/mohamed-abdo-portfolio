@@ -57,7 +57,9 @@ class EditProject extends EditRecord
     protected function handleRecordUpdate(Model $record, array $data): Model
     {
         $record->update($data);
-        $this->syncRelations($record, $this->pendingRelations);
+        if ($record instanceof Project) {
+            $this->syncRelations($record, $this->pendingRelations);
+        }
 
         return $record;
     }

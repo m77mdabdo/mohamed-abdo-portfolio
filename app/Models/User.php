@@ -15,6 +15,7 @@ use SensitiveParameter;
 
 /**
  * @property Role $role
+ * @property array<int, string>|null $app_authentication_recovery_codes
  */
 class User extends Authenticatable implements FilamentUser, HasAppAuthentication, HasAppAuthenticationRecovery
 {

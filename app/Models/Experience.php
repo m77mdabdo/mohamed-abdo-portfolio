@@ -6,7 +6,14 @@ use App\Models\Concerns\HasTranslatableFields;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 
-/** Shared list row (published as one "collection:experiences" subject). */
+/**
+ * Shared list row (published as one "collection:experiences" subject).
+ *
+ * @property array<string, string> $period
+ * @property array<string, string> $role
+ * @property array<string, string> $organization
+ * @property array<string, string>|null $description
+ */
 class Experience extends Model
 {
     use HasTranslatableFields;

@@ -21,6 +21,8 @@ use Illuminate\Support\Facades\Gate;
 /**
  * One settings group (identity, footer, SEO, appearance…) edited as a typed form, saved as a draft and
  * published like a page. Subclasses only name their group.
+ *
+ * @property-read Schema $form
  */
 abstract class EditSettings extends Page
 {

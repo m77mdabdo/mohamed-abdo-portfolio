@@ -27,19 +27,18 @@ final class Publisher
 
             $revision = ContentRevision::query()->create([
                 'subject' => $subject->key(),
-                'version' => ($latest?->version ?? 0) + 1,
+                'version' => ($latest !== null ? $latest->version : 0) + 1,
                 'snapshot' => $snapshot,
                 'hash' => $hash,
                 'note' => $note ? mb_substr($note, 0, 255) : null,
                 'published_by' => $by?->id,
             ]);
             ActivityLog::record('published', $subject->label().' (v'.$revision->version.')', $subject->key());
+            // Visitors keep the old cached version until this transaction has committed.
+            DB::afterCommit(fn () => ContentCache::forget($subject->key()));
 
             return $revision;
         });
-
-        // Runs now, or after the outer transaction commits when publish() is part of a bigger one.
-        DB::afterCommit(fn () => ContentCache::forget($subject->key()));
 
         return $revision;
     }

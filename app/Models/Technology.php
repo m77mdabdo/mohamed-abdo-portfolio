@@ -6,7 +6,11 @@ use App\Models\Concerns\HasTranslatableFields;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 
-/** A tool or framework: used by project stacks, the About tech cube and the moving skills band. */
+/**
+ * A tool or framework: used by project stacks, the About tech cube and the moving skills band.
+ *
+ * @property array<string, string>|null $role
+ */
 class Technology extends Model
 {
     use HasTranslatableFields;

@@ -6,7 +6,12 @@ use App\Models\Concerns\HasTranslatableFields;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 
-/** Shared list row (published as one "collection:skill_groups" subject). */
+/**
+ * Shared list row (published as one "collection:skill_groups" subject).
+ *
+ * @property array<string, string> $name
+ * @property array<int, string> $items
+ */
 class SkillGroup extends Model
 {
     use HasTranslatableFields;

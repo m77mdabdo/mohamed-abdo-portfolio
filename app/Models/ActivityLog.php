@@ -5,6 +5,9 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
+/**
+ * @property array<string, mixed>|null $properties
+ */
 class ActivityLog extends Model
 {
     public const UPDATED_AT = null;
@@ -16,6 +19,7 @@ class ActivityLog extends Model
         return ['properties' => 'array', 'created_at' => 'datetime'];
     }
 
+    /** @return BelongsTo<User, $this> */
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);

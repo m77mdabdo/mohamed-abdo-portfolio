@@ -6,6 +6,7 @@ use App\Content\Collections;
 use App\Content\Contracts\ContentSubject;
 use App\Content\Subjects\CollectionSubject;
 use App\Filament\Concerns\HasPublishingActions;
+use Filament\Actions\Action;
 use Filament\Actions\CreateAction;
 use Filament\Resources\Pages\ManageRecords;
 use Illuminate\Contracts\Support\Htmlable;
@@ -50,7 +51,7 @@ abstract class ManagesCollection extends ManageRecords
 
     protected function getHeaderActions(): array
     {
-        $actions = array_values(array_filter($this->publishingActions(), fn ($a) => $a->getName() !== 'saveDraft'));
+        $actions = array_values(array_filter($this->publishingActions(), fn ($a) => ! ($a instanceof Action && $a->getName() === 'saveDraft')));
 
         return [CreateAction::make()->label(__('Add')), ...$actions];
     }

@@ -110,6 +110,6 @@ trait HasPublishingActions
         return new HtmlString(($dirty
             ? '<span style="color:#d97706">● '.e(__('Saved changes are waiting to be published.')).'</span>'
             : '<span style="color:#16a34a">● '.e(__('The website shows this version.')).'</span>')
-            .' <span style="opacity:.7">· '.e(__('Live version :v, published :time', ['v' => $live->version, 'time' => $live->created_at?->locale(app()->getLocale())->diffForHumans()])).'</span>');
+            .' <span style="opacity:.7">· '.e(__('Live version :v, published :time', ['v' => $live->version, 'time' => $live->created_at->locale(app()->getLocale())->diffForHumans()])).'</span>');
     }
 }

@@ -12,7 +12,7 @@ class SetAdminLocale
 {
     public function handle(Request $request, Closure $next): Response
     {
-        $locale = $request->user()?->locale ?? $request->session()->get('admin_locale');
+        $locale = $request->user() !== null ? $request->user()->locale : $request->session()->get('admin_locale');
         app()->setLocale(Locales::isSupported($locale) ? $locale : 'ar');
 
         return $next($request);

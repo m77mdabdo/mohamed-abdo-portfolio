@@ -6,7 +6,11 @@ use App\Models\Concerns\HasTranslatableFields;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 
-/** Shared list row (published as one "collection:stats" subject). */
+/**
+ * Shared list row (published as one "collection:stats" subject).
+ *
+ * @property array<string, string> $label
+ */
 class Stat extends Model
 {
     use HasTranslatableFields;

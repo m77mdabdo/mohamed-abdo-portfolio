@@ -10,6 +10,9 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 /**
  * A page of the site and its ordered sections (the working copy). System pages (key set) are the
  * pages of the original design; owners can add their own pages built from the same section library.
+ *
+ * @property array<string, string> $title
+ * @property array<string, mixed>|null $seo
  */
 class Page extends Model
 {
@@ -27,6 +30,7 @@ class Page extends Model
         return ['title' => 'array', 'seo' => 'array', 'is_visible' => 'boolean'];
     }
 
+    /** @return HasMany<PageSection, $this> */
     public function sections(): HasMany
     {
         return $this->hasMany(PageSection::class)->orderBy('sort_order')->orderBy('id');

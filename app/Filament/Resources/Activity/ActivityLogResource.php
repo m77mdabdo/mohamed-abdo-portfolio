@@ -40,7 +40,7 @@ class ActivityLogResource extends Resource
     {
         return $table
             ->defaultSort('id', 'desc')
-            ->modifyQueryUsing(fn ($q) => $q->with('user'))
+            ->modifyQueryUsing(fn ($query) => $query->with('user'))
             ->paginated([50, 100])
             ->columns([
                 TextColumn::make('created_at')->label(__('When'))->dateTime('Y-m-d H:i', 'Asia/Riyadh')->sortable(),

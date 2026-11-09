@@ -14,11 +14,13 @@ class ProjectTechnology extends Model
 
     protected $guarded = ['id'];
 
+    /** @return BelongsTo<Project, $this> */
     public function project(): BelongsTo
     {
         return $this->belongsTo(Project::class);
     }
 
+    /** @return BelongsTo<Technology, $this> */
     public function technology(): BelongsTo
     {
         return $this->belongsTo(Technology::class);

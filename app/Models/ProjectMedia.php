@@ -17,11 +17,13 @@ class ProjectMedia extends Model
         return ['caption' => 'array'];
     }
 
+    /** @return BelongsTo<Project, $this> */
     public function project(): BelongsTo
     {
         return $this->belongsTo(Project::class);
     }
 
+    /** @return BelongsTo<Media, $this> */
     public function media(): BelongsTo
     {
         return $this->belongsTo(Media::class);

@@ -6,6 +6,9 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Support\Str;
 
+/**
+ * @property array<string, mixed> $data
+ */
 class PageSection extends Model
 {
     protected $guarded = ['id'];
@@ -22,6 +25,7 @@ class PageSection extends Model
         });
     }
 
+    /** @return BelongsTo<Page, $this> */
     public function page(): BelongsTo
     {
         return $this->belongsTo(Page::class);
