@@ -9,7 +9,26 @@ use App\Content\Readers\PublishedReader;
 use App\Content\Sections\SectionRegistry;
 use App\Content\Site;
 use App\Content\SubjectRegistry;
+use App\Models\ActivityLog;
+use App\Models\Category;
+use App\Models\ContactMessage;
+use App\Models\Experience;
+use App\Models\Media;
+use App\Models\Page;
+use App\Models\ProcessStep;
+use App\Models\Project;
+use App\Models\Service;
+use App\Models\SkillGroup;
+use App\Models\SpokenLanguage;
+use App\Models\Stat;
+use App\Models\Technology;
+use App\Models\Testimonial;
 use App\Models\User;
+use App\Policies\ActivityLogPolicy;
+use App\Policies\ContactMessagePolicy;
+use App\Policies\ContentPolicy;
+use App\Policies\MediaPolicy;
+use App\Policies\UserPolicy;
 use Illuminate\Auth\Events\Login;
 use Illuminate\Cache\RateLimiting\Limit;
 use Illuminate\Http\Request;
@@ -35,6 +54,16 @@ class AppServiceProvider extends ServiceProvider
     public function boot(): void
     {
         // Owner-only abilities (editors work on drafts; only the owner puts them live or manages people).
+        // Model policies (deny by default for anything not listed).
+        foreach ([Page::class, Project::class, Service::class, Experience::class, SkillGroup::class, SpokenLanguage::class,
+            ProcessStep::class, Testimonial::class, Stat::class, Technology::class, Category::class] as $model) {
+            Gate::policy($model, ContentPolicy::class);
+        }
+        Gate::policy(Media::class, MediaPolicy::class);
+        Gate::policy(ContactMessage::class, ContactMessagePolicy::class);
+        Gate::policy(User::class, UserPolicy::class);
+        Gate::policy(ActivityLog::class, ActivityLogPolicy::class);
+
         Gate::define('publish', fn (User $user) => $user->is_active && $user->isOwner());
         Gate::define('manage-settings', fn (User $user) => $user->is_active && $user->isOwner());
         Gate::define('manage-users', fn (User $user) => $user->is_active && $user->isOwner());

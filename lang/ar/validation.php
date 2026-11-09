@@ -1,0 +1,47 @@
+<?php
+
+// Arabic validation messages for the rules used by the site and the dashboard.
+return [
+    'accepted' => 'يجب قبول :attribute.',
+    'array' => 'يجب أن يكون :attribute قائمة.',
+    'boolean' => 'قيمة :attribute يجب أن تكون نعم أو لا.',
+    'confirmed' => 'تأكيد :attribute غير مطابق.',
+    'email' => 'يجب إدخال بريد إلكتروني صحيح في :attribute.',
+    'exists' => 'القيمة المختارة في :attribute غير موجودة.',
+    'file' => 'يجب أن يكون :attribute ملفاً.',
+    'image' => 'يجب أن يكون :attribute صورة.',
+    'in' => 'القيمة المختارة في :attribute غير صالحة.',
+    'integer' => 'يجب أن يكون :attribute عدداً صحيحاً.',
+    'max' => [
+        'array' => 'يجب ألا يزيد :attribute عن :max عناصر.',
+        'file' => 'يجب ألا يزيد حجم :attribute عن :max كيلوبايت.',
+        'numeric' => 'يجب ألا يزيد :attribute عن :max.',
+        'string' => 'يجب ألا يزيد :attribute عن :max حرفاً.',
+    ],
+    'mimes' => 'يجب أن يكون :attribute ملفاً من نوع: :values.',
+    'mimetypes' => 'يجب أن يكون :attribute ملفاً من نوع: :values.',
+    'min' => [
+        'array' => 'يجب أن يحتوي :attribute على :min عناصر على الأقل.',
+        'file' => 'يجب ألا يقل حجم :attribute عن :min كيلوبايت.',
+        'numeric' => 'يجب ألا يقل :attribute عن :min.',
+        'string' => 'يجب ألا يقل :attribute عن :min أحرف.',
+    ],
+    'numeric' => 'يجب أن يكون :attribute رقماً.',
+    'password' => [
+        'letters' => 'يجب أن تحتوي :attribute على حرف واحد على الأقل.',
+        'mixed' => 'يجب أن تحتوي :attribute على حرف كبير وحرف صغير على الأقل.',
+        'numbers' => 'يجب أن تحتوي :attribute على رقم واحد على الأقل.',
+        'symbols' => 'يجب أن تحتوي :attribute على رمز واحد على الأقل.',
+        'uncompromised' => 'ظهرت :attribute في تسريب بيانات. اختر كلمة مرور أخرى.',
+    ],
+    'regex' => 'صيغة :attribute غير صحيحة.',
+    'required' => 'حقل :attribute مطلوب.',
+    'required_if' => 'حقل :attribute مطلوب.',
+    'required_with' => 'حقل :attribute مطلوب.',
+    'required_without' => 'حقل :attribute مطلوب عند ترك :values فارغاً.',
+    'string' => 'يجب أن يكون :attribute نصاً.',
+    'unique' => 'قيمة :attribute مستخدمة من قبل.',
+    'url' => 'صيغة الرابط في :attribute غير صحيحة.',
+    'uuid' => 'قيمة :attribute غير صالحة.',
+    'attributes' => [],
+];
