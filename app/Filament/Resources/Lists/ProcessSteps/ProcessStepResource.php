@@ -2,7 +2,7 @@
 
 namespace App\Filament\Resources\Lists\ProcessSteps;
 
-use App\Filament\Resources\Projects\ProjectResource;
+use App\Filament\Support\Bilingual;
 use App\Filament\Support\CollectionTable;
 use App\Models\ProcessStep;
 use BackedEnum;
@@ -40,8 +40,8 @@ class ProcessStepResource extends Resource
     public static function form(Schema $schema): Schema
     {
         return $schema->columns(1)->components([
-            ProjectResource::bilingual('title', 'Title', max: 60, required: true),
-            ProjectResource::bilingual('description', 'Description', true, 300, true),
+            Bilingual::field('title', 'Title', max: 60, required: true),
+            Bilingual::field('description', 'Description', true, 300, true),
             Toggle::make('is_visible')->label(__('Visible'))->default(true),
         ]);
     }

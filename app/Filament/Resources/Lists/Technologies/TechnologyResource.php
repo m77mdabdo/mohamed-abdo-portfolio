@@ -2,7 +2,7 @@
 
 namespace App\Filament\Resources\Lists\Technologies;
 
-use App\Filament\Resources\Projects\ProjectResource;
+use App\Filament\Support\Bilingual;
 use App\Filament\Support\CollectionTable;
 use App\Models\Technology;
 use App\Support\Icons;
@@ -49,7 +49,7 @@ class TechnologyResource extends Resource
             Select::make('icon')->label(__('Icon'))->native(false)->searchable()->options(Icons::options()),
             ColorPicker::make('color')->label(__('Colour'))->regex('/^#[0-9A-Fa-f]{6}$/'),
             Toggle::make('in_cube')->label(__('Show on the About cube (first 6 in order)')),
-            ProjectResource::bilingual('role', 'Caption under the cube', max: 60),
+            Bilingual::field('role', 'Caption under the cube', max: 60),
             Select::make('band_row')->label(__('Row in the moving skills band'))->native(false)->options([1 => '1', 2 => '2', 3 => '3'])->placeholder(__('Not in the band')),
         ]);
     }

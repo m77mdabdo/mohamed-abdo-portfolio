@@ -16,16 +16,16 @@ class PreviewController extends Controller
     {
         $path = trim((string) $path, '/');
         if (str_starts_with($path, 'projects/')) {
-            return app(ProjectController::class)->show($locale, substr($path, 9));
+            return app(ProjectController::class)->show($locale, substr($path, 9), $site);
         }
         $pages = app(PageController::class);
         if ($path === '') {
-            return $pages->home($locale);
+            return $pages->home($locale, $site);
         }
 
         $page = $site->pageBySlug($path);
         abort_if($page === null, 404);
 
-        return $pages->render($page, $locale);
+        return $pages->render($page, $locale, $site);
     }
 }

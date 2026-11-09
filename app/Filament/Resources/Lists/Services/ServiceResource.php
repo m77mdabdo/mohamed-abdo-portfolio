@@ -2,7 +2,7 @@
 
 namespace App\Filament\Resources\Lists\Services;
 
-use App\Filament\Resources\Projects\ProjectResource;
+use App\Filament\Support\Bilingual;
 use App\Filament\Support\CollectionTable;
 use App\Models\Service;
 use BackedEnum;
@@ -42,8 +42,8 @@ class ServiceResource extends Resource
     {
         return $schema->columns(1)->components([
             TextInput::make('number')->label(__('Number (e.g. 01)'))->maxLength(6),
-            ProjectResource::bilingual('title', 'Title', max: 80, required: true),
-            ProjectResource::bilingual('description', 'Description', true, 400, true),
+            Bilingual::field('title', 'Title', max: 80, required: true),
+            Bilingual::field('description', 'Description', true, 400, true),
             Toggle::make('is_visible')->label(__('Visible'))->default(true),
         ]);
     }

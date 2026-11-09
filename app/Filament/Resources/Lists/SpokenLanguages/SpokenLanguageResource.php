@@ -2,7 +2,7 @@
 
 namespace App\Filament\Resources\Lists\SpokenLanguages;
 
-use App\Filament\Resources\Projects\ProjectResource;
+use App\Filament\Support\Bilingual;
 use App\Filament\Support\CollectionTable;
 use App\Models\SpokenLanguage;
 use BackedEnum;
@@ -40,8 +40,8 @@ class SpokenLanguageResource extends Resource
     public static function form(Schema $schema): Schema
     {
         return $schema->columns(1)->components([
-            ProjectResource::bilingual('name', 'Language', max: 40, required: true),
-            ProjectResource::bilingual('level', 'Level', max: 40, required: true),
+            Bilingual::field('name', 'Language', max: 40, required: true),
+            Bilingual::field('level', 'Level', max: 40, required: true),
             Toggle::make('is_visible')->label(__('Visible'))->default(true),
         ]);
     }
