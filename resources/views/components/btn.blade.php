@@ -6,5 +6,5 @@
     {{ $button['label'] }}
     @if($button['external'] || $button['new_tab'])<span aria-hidden="true">↗</span>
     @elseif($button['download'])<span class="arr" aria-hidden="true">↓</span>
-    @else<span class="arr" aria-hidden="true">→</span>@endif
+    @elseif($button['style'] === 'solid')<span class="arr" aria-hidden="true">→</span>@endif
 </a>
