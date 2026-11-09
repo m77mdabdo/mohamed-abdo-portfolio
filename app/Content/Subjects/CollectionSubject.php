@@ -4,6 +4,7 @@ namespace App\Content\Subjects;
 
 use App\Content\Collections;
 use App\Content\Contracts\ContentSubject;
+use App\Support\Tr;
 
 final class CollectionSubject implements ContentSubject
 {
@@ -30,7 +31,11 @@ final class CollectionSubject implements ContentSubject
         $columns = Collections::columns($this->type);
 
         return $class::query()->orderBy('sort_order')->orderBy('id')->get()
-            ->map(fn ($row) => ['id' => $row->id] + $row->only($columns))
+            ->map(fn ($row) => ['id' => $row->id] + array_map(
+                // translatable values in canonical form so key order or blank strings never count as a change
+                fn ($v) => is_array($v) && (array_key_exists('en', $v) || array_key_exists('ar', $v)) ? Tr::normalize($v) : $v,
+                $row->only($columns),
+            ))
             ->values()->all();
     }
 
