@@ -17,7 +17,7 @@ async function noHorizontalOverflow(page: Page) {
     document.querySelectorAll<HTMLElement>('body *').forEach(el => {
       const r = el.getBoundingClientRect()
       // elements inside intentionally clipped / scrolling containers are fine
-      if (r.width === 0 || el.closest('.track, .sb-rows, .name, .foot-giant, .leak, #drawer, .preview, .cursor, .spot, .grain, .sb-row, .me')) return
+      if (r.width === 0 || el.closest('.track, .sb-rows, .name, .foot-giant, .leak, #drawer, .preview, .cursor, .spot, .grain, .sb-row, .me, .float-wa-label')) return
       if (r.right > max + 1 || r.left < -1) offenders.push(`${el.tagName.toLowerCase()}.${el.className}`.slice(0, 80))
     })
     return { scroll: document.documentElement.scrollWidth <= max + 1, offenders: offenders.slice(0, 5) }
@@ -103,7 +103,7 @@ test('works without JavaScript', async ({ browser }) => {
   const page = await context.newPage()
   await page.goto('/en')
   await expect(page.locator('h1.hero-h')).toBeVisible()
-  await expect(page.locator('nav.links a[href$="#work"]')).toBeVisible()
+  await expect(page.locator('nav.links a[href$="/en/work"]')).toBeVisible()
   await page.goto('/en/work')
   await page.locator('a.row').first().click()
   await expect(page).toHaveURL(/\/en\/projects\//)

@@ -666,3 +666,13 @@ html[lang="ar"] .me-tag b { font-family: var(--mono); }
 .foot-phone:hover { color: var(--turq); }
 .cv .cv-dl .btn:not(.solid):not(.off) { border-color: rgba(18,16,18,.3); color: var(--ink); }
 .cv .cv-dl .btn:not(.solid):not(.off):hover { color: #fff; }
+
+/* a page that opens directly with a light/coloured panel (résumé, contact) keeps clear of the fixed header */
+main > .cv:first-child { margin-top: 0; border-radius: 0 0 40px 40px; padding-top: clamp(130px, 14vw, 200px); }
+main > .contact:first-child { padding-top: clamp(150px, 15vw, 220px); }
+
+.index a.row h3 { font-size: clamp(28px, 4vw, 60px); }
+/* page header light leaks fade into the page instead of ending on a hard edge */
+.page-head::after { content: ""; position: absolute; inset: auto 0 0 0; height: 55%; z-index: -1; background: linear-gradient(to bottom, transparent, var(--ink)); pointer-events: none; }
+.page-head .leak.l1 { top: -18vw; }
+.page-head .leak.l2 { bottom: auto; top: 6vw; }

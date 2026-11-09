@@ -116,7 +116,7 @@ final class ReferencePages
             ['key' => 'home', 'slug' => 'home', 'title' => $b('Home', 'الرئيسية'), 'sections' => [$hero, $statement, $about, $reel, $index(false), $services, $cv, $band, $quotes, $process, $contact]],
             ['key' => 'work', 'slug' => 'work', 'title' => $b('Work', 'الأعمال'), 'sections' => [
                 $header($b('Selected work', 'أعمال مختارة'), $b('Built end to end, from idea to launch', 'من الفكرة إلى الإطلاق')),
-                $reel, $index(true), $cta,
+                ['type' => 'work_reel', 'data' => ['selection' => 'all', 'cursor_label' => $b('View', 'عرض')]], $index(true), $cta,
             ]],
             ['key' => 'about', 'slug' => 'about', 'title' => $b('About', 'عنّي'), 'sections' => [
                 $header($b('About', 'عنّي'), $b('Mohamed Abdo', 'محمد عبده')),

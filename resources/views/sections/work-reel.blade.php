@@ -2,10 +2,14 @@
 <section class="reel" id="{{ $s->domId() }}" data-module="reel">
     <div class="reel-in">
         <div class="reel-head wrap">
-            <div>
-                @if($s->filled('eyebrow'))<p class="mono eyebrow">{{ $s->t('eyebrow') }}</p>@endif
-                @if($s->filled('title'))<h2 class="split">{{ $s->words('title', true) }}</h2>@endif
-            </div>
+            @if($s->filled('eyebrow') || $s->filled('title'))
+                <div>
+                    @if($s->filled('eyebrow'))<p class="mono eyebrow">{{ $s->t('eyebrow') }}</p>@endif
+                    @if($s->filled('title'))<h2 class="split">{{ $s->words('title', true) }}</h2>@endif
+                </div>
+            @else
+                <div></div>
+            @endif
             <p class="reel-count mono keep" dir="ltr" aria-hidden="true"><b data-reel-num>01</b> / {{ str_pad((string) $count, 2, '0', STR_PAD_LEFT) }}</p>
         </div>
         <div class="track" data-reel-track>
