@@ -2,7 +2,7 @@
 
 namespace App\Filament\Resources\Lists\Stats;
 
-use App\Filament\Resources\Projects\ProjectResource;
+use App\Filament\Support\Bilingual;
 use App\Filament\Support\CollectionTable;
 use App\Models\Stat;
 use BackedEnum;
@@ -42,7 +42,7 @@ class StatResource extends Resource
     {
         return $schema->columns(1)->components([
             TextInput::make('value')->label(__('Number (e.g. 27)'))->required()->maxLength(20),
-            ProjectResource::bilingual('label', 'What it counts', max: 120, required: true),
+            Bilingual::field('label', 'What it counts', max: 120, required: true),
             Toggle::make('is_visible')->label(__('Visible'))->default(true),
         ]);
     }

@@ -2,7 +2,7 @@
 
 namespace App\Filament\Resources\Lists\Testimonials;
 
-use App\Filament\Resources\Projects\ProjectResource;
+use App\Filament\Support\Bilingual;
 use App\Filament\Support\CollectionTable;
 use App\Models\Testimonial;
 use BackedEnum;
@@ -44,8 +44,8 @@ class TestimonialResource extends Resource
     {
         return $schema->columns(1)->components([
             TextInput::make('name')->label(__('Client name'))->required()->maxLength(120),
-            ProjectResource::bilingual('role', 'Client role / company', max: 120),
-            ProjectResource::bilingual('quote', 'Quote (exact words of the client)', true, 600, true),
+            Bilingual::field('role', 'Client role / company', max: 120),
+            Bilingual::field('quote', 'Quote (exact words of the client)', true, 600, true),
             Toggle::make('has_consent')->label(__('The client agreed to be quoted by name'))->helperText(__('Quotes without consent are never shown on the site.')),
             Toggle::make('is_visible')->label(__('Visible'))->default(true),
         ]);

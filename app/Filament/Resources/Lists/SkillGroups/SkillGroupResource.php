@@ -2,7 +2,7 @@
 
 namespace App\Filament\Resources\Lists\SkillGroups;
 
-use App\Filament\Resources\Projects\ProjectResource;
+use App\Filament\Support\Bilingual;
 use App\Filament\Support\CollectionTable;
 use App\Models\SkillGroup;
 use BackedEnum;
@@ -41,7 +41,7 @@ class SkillGroupResource extends Resource
     public static function form(Schema $schema): Schema
     {
         return $schema->columns(1)->components([
-            ProjectResource::bilingual('name', 'Group name', max: 60, required: true),
+            Bilingual::field('name', 'Group name', max: 60, required: true),
             TagsInput::make('items')->label(__('Skills (press Enter after each)'))->required(),
             Toggle::make('is_visible')->label(__('Visible'))->default(true),
         ]);

@@ -2,7 +2,7 @@
 
 namespace App\Filament\Resources\Lists\Experiences;
 
-use App\Filament\Resources\Projects\ProjectResource;
+use App\Filament\Support\Bilingual;
 use App\Filament\Support\CollectionTable;
 use App\Models\Experience;
 use BackedEnum;
@@ -40,10 +40,10 @@ class ExperienceResource extends Resource
     public static function form(Schema $schema): Schema
     {
         return $schema->columns(1)->components([
-            ProjectResource::bilingual('period', 'Period (e.g. Nov 2025 — Present)', max: 60, required: true),
-            ProjectResource::bilingual('role', 'Role', max: 80, required: true),
-            ProjectResource::bilingual('organization', 'Organisation and city', max: 120, required: true),
-            ProjectResource::bilingual('description', 'Description', true, 600),
+            Bilingual::field('period', 'Period (e.g. Nov 2025 — Present)', max: 60, required: true),
+            Bilingual::field('role', 'Role', max: 80, required: true),
+            Bilingual::field('organization', 'Organisation and city', max: 120, required: true),
+            Bilingual::field('description', 'Description', true, 600),
             Toggle::make('is_current')->label(__('Current job ("Now" sticker)')),
             Toggle::make('is_visible')->label(__('Visible'))->default(true),
         ]);

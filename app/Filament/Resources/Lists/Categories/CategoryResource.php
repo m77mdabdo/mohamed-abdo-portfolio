@@ -2,7 +2,7 @@
 
 namespace App\Filament\Resources\Lists\Categories;
 
-use App\Filament\Resources\Projects\ProjectResource;
+use App\Filament\Support\Bilingual;
 use App\Filament\Support\CollectionTable;
 use App\Models\Category;
 use BackedEnum;
@@ -41,7 +41,7 @@ class CategoryResource extends Resource
     {
         return $schema->columns(1)->components([
             TextInput::make('slug')->label(__('Address key (filter)'))->required()->maxLength(60)->regex('/^[a-z0-9-]+$/')->unique(ignoreRecord: true),
-            ProjectResource::bilingual('name', 'Name', max: 60, required: true),
+            Bilingual::field('name', 'Name', max: 60, required: true),
         ]);
     }
 

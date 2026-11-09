@@ -104,6 +104,8 @@ GSAP: GreenSock Standard "no charge" licence (https://gsap.com/standard-license)
 
 ## Changelog
 
+- Code review (SOLID): stateless page/project controllers, project form and table in their own classes,
+  shared bilingual field builder, tests for dashboard forms and image optimisation (50 tests).
 - Home page buttons (work, résumé) open the standalone pages.
 - Reel pinning without layout shift; work page reel; résumé/contact page spacing; vitals re-measured.
 - Header links open standalone pages; floating WhatsApp button and phone (editable); CV view + download;
