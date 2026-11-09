@@ -104,6 +104,7 @@ GSAP: GreenSock Standard "no charge" licence (https://gsap.com/standard-license)
 
 ## Changelog
 
+- Home page buttons (work, résumé) open the standalone pages.
 - Reel pinning without layout shift; work page reel; résumé/contact page spacing; vitals re-measured.
 - Header links open standalone pages; floating WhatsApp button and phone (editable); CV view + download;
   e-mail notices without a background worker and `scripts/configure-mail.sh`; CV portrait and anchor fixes.
