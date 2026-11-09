@@ -1,0 +1,28 @@
+{
+    "$schema": "https://www.schemastore.org/package.json",
+    "private": true,
+    "type": "module",
+    "scripts": {
+        "build": "vite build",
+        "dev": "vite",
+        "typecheck": "tsc --noEmit",
+        "test:e2e": "playwright test"
+    },
+    "dependencies": {
+        "@fontsource/alexandria": "^5.1.0",
+        "@fontsource/bricolage-grotesque": "^5.1.0",
+        "@fontsource/ibm-plex-sans-arabic": "^5.1.0",
+        "@fontsource/instrument-sans": "^5.1.0",
+        "@fontsource/jetbrains-mono": "^5.1.0",
+        "gsap": "^3.12.5",
+        "lenis": "^1.1.13",
+        "three": "^0.169.0"
+    },
+    "devDependencies": {
+        "@playwright/test": "1.64.1",
+        "@types/three": "^0.169.0",
+        "laravel-vite-plugin": "^3.1",
+        "typescript": "^5.6.3",
+        "vite": "^8.0.0"
+    }
+}
