@@ -48,7 +48,7 @@ php artisan portfolio:create-owner           # your sign-in; the password is typ
 
 ```bash
 php artisan serve --host=127.0.0.1 --port=8020   # site: http://127.0.0.1:8020/ar · dashboard: /admin
-php artisan queue:work --tries=3                 # image optimisation and e-mail notices
+php artisan queue:work --tries=3                 # optional: e-mail notices and image copies also run right after each request
 php artisan schedule:work                        # daily backup at 03:30 (Asia/Riyadh server time)
 ```
 
@@ -76,6 +76,8 @@ any previous version into the draft, or straight to the live site. Deleting a pa
 | `BASE=http://127.0.0.1:8020 node tests/perf/vitals.cjs` | lab Web Vitals (mobile emulation) |
 | `php artisan db:seed` | re-run the content import (only adds what is missing) |
 | `php artisan portfolio:create-owner` | create or reset the owner account |
+| `bash scripts/configure-mail.sh` | set up Gmail/SMTP for contact notices (password stays in `.env`) |
+| `php artisan portfolio:mail-test [to]` | send a test e-mail with the current settings |
 | `php artisan portfolio:backup [--no-media]` | database + uploads to `storage/app/private/backups` |
 | `php artisan portfolio:restore <file>` | verify a backup in a temporary database (`--into-main` to replace live data) |
 
@@ -102,6 +104,8 @@ GSAP: GreenSock Standard "no charge" licence (https://gsap.com/standard-license)
 
 ## Changelog
 
+- Header links open standalone pages; floating WhatsApp button and phone (editable); CV view + download;
+  e-mail notices without a background worker and `scripts/configure-mail.sh`; CV portrait and anchor fixes.
 - Browser checks (6 widths × 2 languages, reduced motion, no WebGL, no JavaScript, keyboard), lab Web Vitals,
   font preloading.
 - Tests (44), Larastan level 5, backup/restore commands and daily schedule.

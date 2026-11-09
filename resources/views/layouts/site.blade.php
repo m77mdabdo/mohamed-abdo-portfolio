@@ -73,6 +73,7 @@
 </main>
 
 @include('partials.footer')
+@include('partials.float-contact')
 
 <div id="curtain" aria-hidden="true"></div>
 @if($look['grain'] ?? true)<div class="grain" aria-hidden="true"></div>@endif

@@ -14,7 +14,8 @@
         @endif
         <div class="cv-dl">
             @if($cvFile)
-                <a class="btn solid" href="{{ $cvUrl }}" data-magnetic>{{ $s->t('download_label') }} <span class="arr" aria-hidden="true">↓</span></a>
+                @if($s->filled('view_label'))<a class="btn" href="{{ $cvUrl }}?view=1" target="_blank" rel="noopener" data-magnetic>{{ $s->t('view_label') }} <span aria-hidden="true">↗</span></a>@endif
+                <a class="btn solid" href="{{ $cvUrl }}" data-magnetic data-cv-link>{{ $s->t('download_label') }} <span class="arr" aria-hidden="true">↓</span></a>
             @else
                 <span class="btn off" aria-disabled="true">{{ $s->t('pending_label') }}</span>
                 <p class="cv-note">{{ $missing ? $site->ui('cv.missing') : $s->t('pending_note') }}</p>

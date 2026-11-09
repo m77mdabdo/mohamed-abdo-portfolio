@@ -36,7 +36,8 @@ final class StoreContactMessage
             return ['message' => ContactMessage::query()->where('submission_key', $data['submission_key'])->firstOrFail(), 'created' => false];
         }
 
-        NotifyOwnerOfMessage::dispatch($message->id)->afterCommit();
+        // Runs right after the visitor's response is sent: no background worker is needed on simple hosting.
+        NotifyOwnerOfMessage::dispatchAfterResponse($message->id);
 
         return ['message' => $message, 'created' => true];
     }

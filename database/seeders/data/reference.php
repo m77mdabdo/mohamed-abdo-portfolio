@@ -18,6 +18,10 @@ return [
         'timezone_label' => 'GMT+3',
         'availability' => $b('Software Engineer · Laravel · Riyadh', 'مهندس برمجيات · Laravel · الرياض'),
         'email' => 'mohamedabdo.dev@gmail.com',
+        'phone' => '+966 53 751 4589',
+        'whatsapp_button' => true,
+        'whatsapp_message' => $b('Hello Mohamed, I found you through your website and would like to talk about a project.', 'مرحباً محمد، وصلت إليك عبر موقعك وأرغب في الحديث عن مشروع.'),
+        'whatsapp_label' => $b('WhatsApp me', 'راسلني واتساب'),
         'social' => [
             ['label' => 'GitHub', 'url' => 'https://github.com/m77mdabdo'],
             ['label' => 'LinkedIn', 'url' => 'https://www.linkedin.com/in/mohamed-abdo-94a9872a1'],

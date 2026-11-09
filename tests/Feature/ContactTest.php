@@ -9,8 +9,8 @@ use App\Jobs\NotifyOwnerOfMessage;
 use App\Models\ContactMessage;
 use App\Models\SiteSetting;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Support\Facades\Bus;
 use Illuminate\Support\Facades\Mail;
-use Illuminate\Support\Facades\Queue;
 use Illuminate\Support\Str;
 use RuntimeException;
 use Tests\TestCase;
@@ -29,6 +29,7 @@ class ContactTest extends TestCase
     public function test_message_is_saved_once_even_when_sent_twice(): void
     {
         $this->importReference();
+        Bus::fake([NotifyOwnerOfMessage::class]);
         $data = $this->payload();
         $this->postJson('/en/contact-message', $data)->assertOk()->assertJson(['ok' => true]);
         $this->postJson('/en/contact-message', $data)->assertOk()->assertJsonPath('message', 'This message was already received — thank you.');
@@ -37,7 +38,7 @@ class ContactTest extends TestCase
         $this->assertSame('new', $message->status->value);
         $this->assertSame('en', $message->locale);
         $this->assertNotSame('127.0.0.1', $message->ip_hash); // hashed, not stored in clear
-        Queue::assertPushed(NotifyOwnerOfMessage::class, 1);
+        Bus::assertDispatchedAfterResponse(NotifyOwnerOfMessage::class, 1);
     }
 
     public function test_validation_and_arabic_messages(): void

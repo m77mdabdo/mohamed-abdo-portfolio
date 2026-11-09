@@ -141,10 +141,22 @@ function anchors(ctx: Ctx) {
     focusTarget?.setAttribute('tabindex', focusTarget.getAttribute('tabindex') ?? '-1')
     focusTarget?.focus({ preventScroll: true })
   })
-  // arriving with a hash: Lenis needs a nudge once layout (pins) is ready
-  if (location.hash && ctx.lenis) {
+  // arriving with a hash (/en#cv): pinned sections add height after load, so the browser's first jump lands
+  // too early. Re-measure and jump a few times while the layout settles (stops as soon as the user scrolls).
+  if (location.hash) {
     const target = document.getElementById(decodeURIComponent(location.hash.slice(1)))
-    if (target) ctx.timer(() => ctx.lenis?.scrollTo(target, { immediate: true }), 120)
+    if (target) {
+      let userScrolled = false
+      ctx.on(window, 'wheel', () => { userScrolled = true }, { once: true, passive: true })
+      ctx.on(window, 'touchstart', () => { userScrolled = true }, { once: true, passive: true })
+      const jump = () => {
+        if (userScrolled) return
+        const top = Math.round(target.getBoundingClientRect().top + window.scrollY)
+        if (ctx.lenis) ctx.lenis.scrollTo(top, { immediate: true, force: true })
+        else window.scrollTo(0, top)
+      }
+      ;[50, 400, 1000, 1800].forEach(ms => ctx.timer(jump, ms))
+    }
   }
 }
 
@@ -173,16 +185,18 @@ function curtain(ctx: Ctx) {
   })
 }
 
-/** the header turns into a floating menu button once the opening section is passed */
+/** the header turns into a floating menu button once the opening section is passed (the logo and links fade
+    out so they never sit on top of headings further down; they come back at the top of the page) */
 function fab(ctx: Ctx) {
-  const btn = document.getElementById('fab'), links = document.querySelector('header.top nav.links')
+  const btn = document.getElementById('fab'), header = document.querySelector<HTMLElement>('header.top')
   if (!btn) return
   const first = document.querySelector<HTMLElement>('.hero, .page-head, .case-hero') || document.querySelector<HTMLElement>('main > *')
   if (!first) return
+  const d = ctx.reduced ? 0 : 1
   ScrollTrigger.create({
-    trigger: first, start: '80% top',
-    onEnter: () => { gsap.to(btn, { scale: 1, duration: ctx.reduced ? 0 : 0.5, ease: 'back.out(1.8)' }); if (links) gsap.to(links, { autoAlpha: 0, y: -20, duration: 0.4 }) },
-    onLeaveBack: () => { gsap.to(btn, { scale: 0, duration: ctx.reduced ? 0 : 0.3 }); if (links) gsap.to(links, { autoAlpha: 1, y: 0, duration: 0.4 }) },
+    trigger: first, start: first.classList.contains('hero') ? '80% top' : 'bottom top',
+    onEnter: () => { gsap.to(btn, { scale: 1, duration: 0.5 * d, ease: 'back.out(1.8)' }); if (header) gsap.to(header, { autoAlpha: 0, y: -20, duration: 0.4 * d }) },
+    onLeaveBack: () => { gsap.to(btn, { scale: 0, duration: 0.3 * d }); if (header) gsap.to(header, { autoAlpha: 1, y: 0, duration: 0.4 * d }) },
   })
 }
 

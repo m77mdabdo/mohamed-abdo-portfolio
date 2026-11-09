@@ -23,7 +23,7 @@ class ImportTest extends TestCase
         $this->importReference();
         $counts = fn () => [Page::count(), PageSection::count(), Project::count(), Media::count(), Service::count(), ContentRevision::count()];
         $first = $counts();
-        $this->assertSame([6, 28, 9, 62, 4], array_slice($first, 0, 5));
+        $this->assertSame([6, 29, 9, 62, 4], array_slice($first, 0, 5));
 
         Project::query()->where('slug', 'masar')->update(['year' => '2025']);
         Service::query()->first()->update(['title' => ['en' => 'Owner edit', 'ar' => 'تعديل المالك']]);

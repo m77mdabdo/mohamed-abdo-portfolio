@@ -40,6 +40,7 @@ class CvSection extends SectionType
         return [
             $this->eyebrow(),
             Field::title('title', 'Title')->translatable(),
+            Field::text('view_label', 'View button (opens the PDF)')->translatable()->max(60),
             Field::text('download_label', 'Download button')->translatable()->max(60),
             Field::text('pending_label', 'Text when no CV file is uploaded')->translatable()->max(80),
             Field::text('pending_note', 'Note when no CV file is uploaded')->translatable()->max(160),

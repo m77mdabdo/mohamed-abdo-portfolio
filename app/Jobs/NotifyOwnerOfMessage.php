@@ -44,7 +44,14 @@ class NotifyOwnerOfMessage implements ShouldQueue
             return;
         }
 
-        Mail::to($recipient)->send(new NewContactMessage($message));
+        try {
+            Mail::to($recipient)->send(new NewContactMessage($message));
+        } catch (Throwable $e) {
+            report($e);
+            $this->failed($e);
+
+            return;
+        }
         $message->forceFill(['notification_status' => 'sent', 'notification_error' => null, 'notified_at' => now()])->save();
     }
 
