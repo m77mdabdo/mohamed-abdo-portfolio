@@ -1,9 +1,9 @@
 <?php
 
 /*
- * Runs the test suite against the separate MariaDB test database (DB_TEST_DATABASE) with the migration
- * user, so migrations, JSON columns and backup/restore are checked on the real engine. Never uses the
- * main database. Usage: composer test:mariadb
+ * Runs the test suite against the separate test database (DB_TEST_DATABASE) on the real engine
+ * (DB_CONNECTION: mysql or mariadb) with the migration user, so migrations, JSON columns and
+ * backup/restore are checked for real. Never uses the main database. Usage: composer test:db
  */
 require __DIR__.'/../vendor/autoload.php';
 
@@ -14,7 +14,8 @@ if ($test === '' || $test === ($_ENV['DB_DATABASE'] ?? '')) {
     exit(1);
 }
 $env = [
-    'DB_CONNECTION' => 'mariadb',
+    'DB_CONNECTION' => $_ENV['DB_CONNECTION'] ?? 'mysql',
+    'DB_SOCKET' => $_ENV['DB_SOCKET'] ?? '',
     'DB_DATABASE' => $test,
     'DB_USERNAME' => $_ENV['DB_MIGRATE_USERNAME'] ?? '',
     'DB_PASSWORD' => $_ENV['DB_MIGRATE_PASSWORD'] ?? '',

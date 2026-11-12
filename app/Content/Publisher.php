@@ -84,8 +84,41 @@ final class Publisher
         return $live !== self::hash($subject->draft());
     }
 
+    /**
+     * Fingerprint of a snapshot. Object keys are sorted first, so the same content always gives the same hash
+     * whatever order the database returns JSON keys in (MySQL reorders them, MariaDB and SQLite do not).
+     */
     public static function hash(array $snapshot): string
     {
-        return sha1(json_encode($snapshot, JSON_UNESCAPED_UNICODE | JSON_THROW_ON_ERROR));
+        return sha1(json_encode(self::canonical($snapshot), JSON_UNESCAPED_UNICODE | JSON_THROW_ON_ERROR));
+    }
+
+    private static function canonical(array $value): array
+    {
+        if (! array_is_list($value)) {
+            ksort($value);
+        }
+        foreach ($value as $k => $v) {
+            if (is_array($v)) {
+                $value[$k] = self::canonical($v);
+            }
+        }
+
+        return $value;
+    }
+
+    /** Recomputes stored fingerprints (after a hashing change or a move between database engines). */
+    public static function rehashAll(): int
+    {
+        $n = 0;
+        ContentRevision::query()->orderBy('id')->each(function (ContentRevision $r) use (&$n) {
+            $hash = self::hash($r->snapshot);
+            if ($hash !== $r->hash) {
+                ContentRevision::query()->whereKey($r->id)->update(['hash' => $hash]);
+                $n++;
+            }
+        });
+
+        return $n;
     }
 }
