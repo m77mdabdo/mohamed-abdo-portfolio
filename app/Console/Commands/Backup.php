@@ -19,18 +19,20 @@ class Backup extends Command
 
     public function handle(): int
     {
-        $conn = config('database.connections.mariadb_migrate');
+        $conn = config('database.connections.migrate');
         $dir = config('portfolio.backup_path');
         File::ensureDirectoryExists($dir, 0700);
         $stamp = now()->format('Ymd-His');
         $sql = "{$dir}/db-{$conn['database']}-{$stamp}.sql.gz";
 
         $dump = Process::fromShellCommandline(
-            '"$BIN" --single-transaction --routines --no-tablespaces --default-character-set=utf8mb4 '
+            '"$BIN" --single-transaction --no-tablespaces --default-character-set=utf8mb4 $EXTRA '
             .'--socket="$SOCK" -u"$USER_NAME" "$DB" | gzip -9 > "$OUT"',
             null,
             ['BIN' => config('portfolio.mysqldump'), 'SOCK' => $conn['unix_socket'], 'USER_NAME' => $conn['username'],
-                'MYSQL_PWD' => $conn['password'], 'DB' => $conn['database'], 'OUT' => $sql],
+                'MYSQL_PWD' => $conn['password'], 'DB' => $conn['database'], 'OUT' => $sql,
+                // MySQL adds replication (GTID) statements that a restore elsewhere does not want
+                'EXTRA' => $conn['driver'] === 'mysql' ? '--set-gtid-purged=OFF' : ''],
             null,
             600,
         );

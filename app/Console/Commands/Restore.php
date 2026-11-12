@@ -25,7 +25,7 @@ class Restore extends Command
 
             return self::FAILURE;
         }
-        $conn = config('database.connections.mariadb_migrate');
+        $conn = config('database.connections.migrate');
         $target = $this->option('into-main') ? $conn['database'] : $conn['database'].'_restore_check';
 
         if ($this->option('into-main')) {
@@ -36,8 +36,8 @@ class Restore extends Command
                 return self::FAILURE;
             }
         } else {
-            DB::connection('mariadb_migrate')->statement("DROP DATABASE IF EXISTS `{$target}`");
-            DB::connection('mariadb_migrate')->statement("CREATE DATABASE `{$target}` CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci");
+            DB::connection('migrate')->statement("DROP DATABASE IF EXISTS `{$target}`");
+            DB::connection('migrate')->statement("CREATE DATABASE `{$target}` CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci");
         }
 
         $restore = Process::fromShellCommandline(
@@ -56,13 +56,13 @@ class Restore extends Command
 
         $counts = [];
         foreach (['pages', 'page_sections', 'projects', 'media', 'content_revisions', 'contact_messages', 'users'] as $table) {
-            $counts[$table] = DB::connection('mariadb_migrate')->table($target.'.'.$table)->count();
+            $counts[$table] = DB::connection('migrate')->table($target.'.'.$table)->count();
         }
         $this->table(['table', 'rows'], collect($counts)->map(fn ($n, $t) => [$t, $n])->values()->all());
         $this->info("Restored into \"{$target}\".");
 
         if (! $this->option('into-main') && ! $this->option('keep')) {
-            DB::connection('mariadb_migrate')->statement("DROP DATABASE IF EXISTS `{$target}`");
+            DB::connection('migrate')->statement("DROP DATABASE IF EXISTS `{$target}`");
             $this->line('The check database was removed again (use --keep to inspect it).');
         }
 

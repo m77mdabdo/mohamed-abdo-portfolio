@@ -84,8 +84,41 @@ return [
             ]) : [],
         ],
 
-        // Same server and database as "mariadb", but with the user allowed to change the schema.
-        // Used only by `php artisan migrate --database=mariadb_migrate` and backup/restore commands.
+        // Same server and database as the main connection, with the user allowed to change the schema.
+        // Used by `php artisan migrate --database=migrate` and the backup/restore commands.
+        // Its driver follows DB_CONNECTION (mysql or mariadb).
+        'migrate' => [
+            'driver' => env('DB_CONNECTION') === 'mariadb' ? 'mariadb' : 'mysql',
+            'host' => env('DB_HOST', '127.0.0.1'),
+            'port' => env('DB_PORT', '3306'),
+            'database' => env('DB_DATABASE', 'laravel'),
+            'username' => env('DB_MIGRATE_USERNAME', env('DB_USERNAME', 'root')),
+            'password' => env('DB_MIGRATE_PASSWORD', env('DB_PASSWORD', '')),
+            'unix_socket' => env('DB_SOCKET', ''),
+            'charset' => 'utf8mb4',
+            'collation' => 'utf8mb4_unicode_ci',
+            'prefix' => '',
+            'prefix_indexes' => true,
+            'strict' => true,
+            'engine' => null,
+        ],
+
+        // Target of a move to MySQL (scripts/create-database-mysql.sh writes MYSQL_*). Kept until the switch is done.
+        'mysql_target' => [
+            'driver' => 'mysql',
+            'database' => env('MYSQL_DATABASE', 'mohamed_abdo_portfolio'),
+            'username' => env('MYSQL_MIGRATE_USERNAME'),
+            'password' => env('MYSQL_MIGRATE_PASSWORD'),
+            'unix_socket' => env('MYSQL_SOCKET', '/tmp/mysql-8.4.sock'),
+            'charset' => 'utf8mb4',
+            'collation' => 'utf8mb4_unicode_ci',
+            'prefix' => '',
+            'prefix_indexes' => true,
+            'strict' => true,
+            'engine' => null,
+        ],
+
+        // Old name kept for existing instructions.
         'mariadb_migrate' => [
             'driver' => 'mariadb',
             'host' => env('DB_HOST', '127.0.0.1'),
