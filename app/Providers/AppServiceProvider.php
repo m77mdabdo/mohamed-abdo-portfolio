@@ -29,6 +29,7 @@ use App\Policies\ContactMessagePolicy;
 use App\Policies\ContentPolicy;
 use App\Policies\MediaPolicy;
 use App\Policies\UserPolicy;
+use App\Support\CanonicalUrl;
 use Illuminate\Auth\Events\Login;
 use Illuminate\Cache\RateLimiting\Limit;
 use Illuminate\Http\Request;
@@ -53,6 +54,9 @@ class AppServiceProvider extends ServiceProvider
 
     public function boot(): void
     {
+        // Links in e-mails always point at APP_URL, whatever Host header a request carried.
+        CanonicalUrl::apply($this->app);
+
         // Owner-only abilities (editors work on drafts; only the owner puts them live or manages people).
         // Model policies (deny by default for anything not listed).
         foreach ([Page::class, Project::class, Service::class, Experience::class, SkillGroup::class, SpokenLanguage::class,

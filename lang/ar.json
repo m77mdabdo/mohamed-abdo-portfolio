@@ -479,5 +479,6 @@
     "live now": "منشورة الآن",
     "never published": "لم يُنشر أبداً",
     "published": "نشر",
-    "restored": "استعادة"
+    "restored": "استعادة",
+    "The image is too large (maximum :size megapixels).": "الصورة كبيرة جداً (الحد الأقصى :size ميغابكسل)."
 }

@@ -80,6 +80,7 @@ class ContactTest extends TestCase
     public function test_mail_failure_never_loses_the_message_and_status_is_honest(): void
     {
         $this->importReference();
+        $this->owner(); // no recipient set: notices go to the owner's address
         $this->postJson('/en/contact-message', $this->payload())->assertOk();
         $message = ContactMessage::query()->firstOrFail();
 
