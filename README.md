@@ -104,6 +104,9 @@ GSAP: GreenSock Standard "no charge" licence (https://gsap.com/standard-license)
 
 ## Changelog
 
+- Security audit (docs/security-audit-2026-11.md): project folder refuses web requests (.env/.git were served by
+  XAMPP Apache), links in e-mails built from APP_URL and only APP_URL's host answered in production, message
+  notices fall back to the owner's address, images over 40 megapixels refused.
 - Code review (SOLID): stateless page/project controllers, project form and table in their own classes,
   shared bilingual field builder, tests for dashboard forms and image optimisation (50 tests).
 - Home page buttons (work, résumé) open the standalone pages.

@@ -23,6 +23,8 @@ final class MediaLibrary
 
     public const MAX_IMAGE_KB = 8192;
 
+    public const MAX_IMAGE_PIXELS = 40_000_000;
+
     public const MAX_DOCUMENT_KB = 10240;
 
     public function store(UploadedFile $file, string $kind = 'image', ?User $by = null, array $alt = []): Media
@@ -57,6 +59,10 @@ final class MediaLibrary
                 throw new InvalidArgumentException(__('The image could not be read.'));
             }
             [$width, $height] = $info;
+            // Decoding needs about 4 bytes per pixel; refuse images that would exhaust memory while resizing.
+            if ($width * $height > self::MAX_IMAGE_PIXELS) {
+                throw new InvalidArgumentException(__('The image is too large (maximum :size megapixels).', ['size' => self::MAX_IMAGE_PIXELS / 1_000_000]));
+            }
         }
 
         $stored = sprintf('media/%s/%s.%s', now()->format('Y/m'), Str::lower((string) Str::ulid()), $allowed[$mime]);

@@ -3,8 +3,10 @@
 namespace App\Jobs;
 
 use App\Content\Site;
+use App\Enums\Role;
 use App\Mail\NewContactMessage;
 use App\Models\ContactMessage;
+use App\Models\User;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Queue\Queueable;
 use Illuminate\Support\Facades\Mail;
@@ -33,7 +35,10 @@ class NotifyOwnerOfMessage implements ShouldQueue
         }
 
         $settings = $site->settings('contact');
-        $recipient = $settings['recipient'] ?: ($site->settings('identity')['email'] ?? '');
+        // Without an explicit recipient, notices go to the owner's own sign-in address. Never to the public
+        // identity e-mail: editors can change that one, and visitors' messages must not follow it.
+        $recipient = $settings['recipient'] ?: (string) User::query()
+            ->where('role', Role::Owner->value)->where('is_active', true)->orderBy('id')->value('email');
         $mailer = (string) config('mail.default');
 
         if (! ($settings['notify'] ?? false) || $recipient === '' || in_array($mailer, ['log', 'array'], true)) {
