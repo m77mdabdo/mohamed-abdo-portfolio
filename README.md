@@ -14,7 +14,7 @@ Documentation: [owner guide (Arabic)](docs/owner-guide-ar.md) · [content invent
 
 | Layer | Version |
 | --- | --- |
-| PHP | 8.5.2 (requires ^8.3) |
+| PHP | 8.5.2 (requires 8.4.1+) |
 | Laravel | 13.40.0 |
 | Filament (dashboard) · Livewire | 5.11.2 · 4.4.8 |
 | Database | MariaDB 10.4 (XAMPP) — MySQL 8 compatible; SQLite for fast tests |
@@ -45,6 +45,12 @@ php artisan portfolio:create-owner           # your sign-in; the password is typ
 `.env` only. The runtime user (`map_app`) can only read/write data; schema changes use `map_migrate`.
 
 ## Run
+
+Easiest: double-click **Start Portfolio.command** in the project folder (or `bash scripts/start.sh`). It uses
+Homebrew PHP 8.4+, opens http://127.0.0.1:8020/ar and also runs the scheduler. XAMPP's Apache cannot run the
+site (its PHP is 8.1); opening it through `localhost/mohamed-abdo-portfolio/public` shows these instructions.
+
+Manually:
 
 ```bash
 php artisan serve --host=127.0.0.1 --port=8020   # site: http://127.0.0.1:8020/ar · dashboard: /admin
@@ -109,6 +115,8 @@ GSAP: GreenSock Standard "no charge" licence (https://gsap.com/standard-license)
 
 ## Changelog
 
+- One-click start (Start Portfolio.command); images load on any local port; custom cursor no longer
+  shows a stray "1" (a settings attribute collided with the hover selector); clear page under old PHP.
 - Full review pass: Arabic for the remaining dashboard labels (WhatsApp settings, CV view button) and for the
   Filament 5 strings its Arabic files lack (`lang/vendor/…`); the activity log names subjects in the reader's
   language; browser checks remove their test message from the local inbox. 40 public pages and 347 files

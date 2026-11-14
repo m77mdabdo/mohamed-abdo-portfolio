@@ -70,7 +70,7 @@ function chrome(ctx: Ctx) {
   languageSwitch(ctx)
   curtain(ctx)
   fab(ctx)
-  if (ctx.fine && !ctx.reduced && !ctx.calm && html.dataset.cursor === '1') cursor(ctx)
+  if (ctx.fine && !ctx.reduced && !ctx.calm && html.dataset.customCursor === '1') cursor(ctx)
   footer(ctx)
 }
 

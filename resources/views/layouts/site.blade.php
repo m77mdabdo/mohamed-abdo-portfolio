@@ -14,7 +14,7 @@
 <html lang="{{ $locale }}" dir="{{ $dir }}" class="no-js"
       data-motion="{{ $motion }}"
       data-smooth="{{ ($look['smooth_scroll'] ?? true) ? '1' : '0' }}"
-      data-cursor="{{ ($look['custom_cursor'] ?? true) ? '1' : '0' }}"
+      data-custom-cursor="{{ ($look['custom_cursor'] ?? true) ? '1' : '0' }}"
       data-scene="{{ ($look['scene_3d'] ?? true) ? '1' : '0' }}"
       data-loader="{{ ($look['loader'] ?? true) && ($isHome ?? false) ? '1' : '0' }}"
       data-tz="{{ $identity['timezone'] ?: 'Asia/Riyadh' }}"

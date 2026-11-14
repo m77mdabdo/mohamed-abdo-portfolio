@@ -82,4 +82,12 @@ class CvAndMediaTest extends TestCase
         $this->get('/storage/backups/anything.sql.gz')->assertNotFound();
         $this->get('/storage/app/private/backups')->assertNotFound();
     }
+
+    public function test_image_addresses_follow_the_address_the_site_is_opened_on(): void
+    {
+        $this->importReference();
+        $html = $this->get('http://127.0.0.1:8002/en')->getContent();
+        $this->assertMatchesRegularExpression('#src="http://127\.0\.0\.1:8002/storage/media/#', $html);
+        $this->assertStringNotContainsString(':8020/storage/', $html);
+    }
 }
