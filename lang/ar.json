@@ -482,5 +482,10 @@
     "Use this code to finish signing in to the dashboard:": "استخدم هذا الكود لإكمال الدخول إلى لوحة التحكم:",
     "The code works once and expires in :minutes minutes.": "الكود يعمل مرة واحدة وتنتهي صلاحيته بعد :minutes دقائق.",
     "If you did not try to sign in, ignore this e-mail and change your password.": "إن لم تحاول الدخول فتجاهل هذه الرسالة وغيّر كلمة المرور.",
-    "The copies are being re-created. Reload in a few seconds.": "يُعاد إنشاء النسخ الآن. حدّث الصفحة بعد ثوانٍ."
+    "The copies are being re-created. Reload in a few seconds.": "يُعاد إنشاء النسخ الآن. حدّث الصفحة بعد ثوانٍ.",
+    "Phone / WhatsApp number (e.g. +966 53 751 4589)": "رقم الهاتف / واتساب (مثال: ‎+966 53 751 4589)",
+    "Floating WhatsApp button on every page": "زر واتساب عائم في كل الصفحات",
+    "First message typed for the visitor in WhatsApp": "الرسالة الأولى المكتوبة للزائر في واتساب",
+    "Floating button label": "نص الزر العائم",
+    "View button (opens the PDF)": "زر العرض (يفتح ملف PDF)"
 }

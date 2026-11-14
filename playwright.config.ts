@@ -4,6 +4,7 @@ import { defineConfig } from '@playwright/test'
 // BASE=http://127.0.0.1:8020 npx playwright test --trace off
 export default defineConfig({
   testDir: 'tests/e2e',
+  globalTeardown: './tests/e2e/teardown.ts',
   outputDir: 'qa-output/test-results',
   timeout: 90_000,
   workers: 2,
