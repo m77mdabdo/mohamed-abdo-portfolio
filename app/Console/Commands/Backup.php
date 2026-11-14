@@ -2,6 +2,7 @@
 
 namespace App\Console\Commands;
 
+use App\Console\Commands\Concerns\MysqlClient;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\File;
 use Symfony\Component\Process\Process;
@@ -13,6 +14,8 @@ use Symfony\Component\Process\Process;
  */
 class Backup extends Command
 {
+    use MysqlClient;
+
     protected $signature = 'portfolio:backup {--no-media : Database only}';
 
     protected $description = 'Back up the database and uploaded files to storage/app/private/backups';
@@ -27,10 +30,9 @@ class Backup extends Command
 
         $dump = Process::fromShellCommandline(
             '"$BIN" --single-transaction --no-tablespaces --default-character-set=utf8mb4 $EXTRA '
-            .'--socket="$SOCK" -u"$USER_NAME" "$DB" | gzip -9 > "$OUT"',
+            .$this->clientTarget($conn).' -u"$USER_NAME" "$DB" | gzip -9 > "$OUT"',
             null,
-            ['BIN' => config('portfolio.mysqldump'), 'SOCK' => $conn['unix_socket'], 'USER_NAME' => $conn['username'],
-                'MYSQL_PWD' => $conn['password'], 'DB' => $conn['database'], 'OUT' => $sql,
+            $this->clientEnv($conn) + ['BIN' => config('portfolio.mysqldump'), 'DB' => $conn['database'], 'OUT' => $sql,
                 // MySQL adds replication (GTID) statements that a restore elsewhere does not want
                 'EXTRA' => $conn['driver'] === 'mysql' ? '--set-gtid-purged=OFF' : ''],
             null,

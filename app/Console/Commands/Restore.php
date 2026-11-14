@@ -2,6 +2,7 @@
 
 namespace App\Console\Commands;
 
+use App\Console\Commands\Concerns\MysqlClient;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\DB;
 use Symfony\Component\Process\Process;
@@ -13,6 +14,8 @@ use Symfony\Component\Process\Process;
  */
 class Restore extends Command
 {
+    use MysqlClient;
+
     protected $signature = 'portfolio:restore {file : Path to a db-*.sql.gz backup} {--into-main : Replace the main database (asks for confirmation)} {--keep : Keep the check database afterwards}';
 
     protected $description = 'Restore a database backup (verifies into a temporary database unless --into-main)';
@@ -41,9 +44,9 @@ class Restore extends Command
         }
 
         $restore = Process::fromShellCommandline(
-            'gunzip -c "$IN" | "$BIN" --default-character-set=utf8mb4 --socket="$SOCK" -u"$USER_NAME" "$DB"',
+            'gunzip -c "$IN" | "$BIN" --default-character-set=utf8mb4 '.$this->clientTarget($conn).' -u"$USER_NAME" "$DB"',
             null,
-            ['IN' => $file, 'BIN' => config('portfolio.mysql'), 'SOCK' => $conn['unix_socket'], 'USER_NAME' => $conn['username'], 'MYSQL_PWD' => $conn['password'], 'DB' => $target],
+            $this->clientEnv($conn) + ['IN' => $file, 'BIN' => config('portfolio.mysql'), 'DB' => $target],
             null,
             600,
         );

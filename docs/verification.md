@@ -26,7 +26,7 @@ back/forward + language switching (one runtime per document, no errors), contact
 Playwright + Chrome DevTools Protocol: Moto G4 emulation, 150 ms latency, 1.6 Mbps down, 4× CPU slowdown, cache
 disabled. "Interaction" is the longest Event Timing entry while opening/closing the menu and scrolling — a lab
 indicator only; real INP needs field data from visitors, which a local site does not have.
-Lighthouse itself could not be run here (downloading it was blocked by the machine's permission settings).
+Lighthouse results are in the next section.
 
 | Page | Mode | LCP | CLS | Interaction | Transfer |
 | --- | --- | --- | --- | --- | --- |
@@ -53,3 +53,38 @@ time tag match. Intentional differences: with reduced motion the original still 
 shows the static orb; project details are pages instead of an overlay; the contact button reads "Send
 message" because the form now really sends; Arabic text in monospace labels is no longer letter-spaced (it
 broke the joining of Arabic letters).
+
+## Lighthouse 13.6 (2026-11-14)
+
+Run from a scratch folder (not a project dependency) against production mode (`APP_ENV=production`,
+`APP_DEBUG=false`) behind a local Apache 2.4 with the project's `public/.htaccess`: gzip and browser caching,
+like a hosting server. Lighthouse's default simulated mobile throttling (slow 4G, 4× CPU); scores out of 100.
+
+| Page | Mode | Performance | Accessibility | Best practices | SEO | LCP | CLS | TBT |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| /ar | mobile | 87 | 97 | 100 | 100 | 3.2 s | 0.007 | 230 ms |
+| /ar | desktop | 95 | 97 | 100 | 100 | 1.3 s | 0.005 | 30 ms |
+| /en | mobile | 79 | 97 | 100 | 100 | 4.6 s | 0.003 | 210 ms |
+| /en | desktop | 98 | 97 | 100 | 100 | 0.9 s | 0.005 | 20 ms |
+| /ar/work | mobile | 95 | 98 | 100 | 100 | 2.9 s | 0 | 20 ms |
+| /ar/work | desktop | 98 | 98 | 100 | 100 | 0.2 s | 0.099 | 0 ms |
+| /en/projects/cashier | mobile | 100 | 96 | 100 | 100 | 0.7 s | 0 | 0 ms |
+| /en/projects/cashier | desktop | 100 | 96 | 100 | 100 | 0.6 s | 0 | 0 ms |
+
+The home page's mobile LCP element is the portrait, which the opening animation reveals; measured
+(unthrottled) its render delay is about 190 ms, the simulated figure adds the 3D scene's script cost on a slow CPU.
+The remaining accessibility points are the statement words that start dim and light up while scrolling
+(Lighthouse samples them mid-animation). On `php artisan serve` without compression the same pages score lower
+(home mobile 58–75), and in development mode SEO shows 69 because `robots.txt` blocks indexing outside production.
+
+## Dashboard, sign-in and restore (2026-11-14)
+
+| Check | How | Result |
+| --- | --- | --- |
+| Sign-in code | Playwright: owner and editor sign in, code read from the log mailer | wrong code refused, right code signs in, too many tries are paused |
+| Menus | move an item, edit a label, save draft, preview, add link, discard | live site unchanged by the draft, preview shows it, discard restores order and text |
+| Interface texts | edit, save draft, Arabic preview, history, discard | as expected |
+| Media | upload PNG, edit description, where used, re-create copies, delete; delete an image in use | 4 copies made, used image refused with the place it is used |
+| Users | weak password refused, add editor, rename, delete; editor's own view | editor gets 403 on users, activity and owner settings, and no publish button |
+| Restore over the main database | backup → `portfolio:restore --into-main` → per-table row counts and `CHECKSUM TABLE` | identical before and after |
+| Production mode | `APP_ENV=production` server | pages 200, forged Host 400, 404 without debug details, robots allows indexing |

@@ -2,9 +2,9 @@
 
 namespace App\Providers\Filament;
 
+use App\Auth\EmailSignInCode;
 use App\Http\Middleware\SecurityHeaders;
 use App\Http\Middleware\SetAdminLocale;
-use Filament\Auth\MultiFactor\App\AppAuthentication;
 use Filament\Http\Middleware\Authenticate;
 use Filament\Http\Middleware\AuthenticateSession;
 use Filament\Http\Middleware\DisableBladeIconComponents;
@@ -28,7 +28,7 @@ use Illuminate\View\Middleware\ShareErrorsFromSession;
 
 /**
  * The dashboard at /admin. Sign-in only (no public registration), Filament's built-in login rate limit,
- * optional authenticator-app two-factor sign-in, Arabic/English with right-to-left support.
+ * a one-time code by e-mail on every sign-in, Arabic/English with right-to-left support.
  */
 class AdminPanelProvider extends PanelProvider
 {
@@ -48,7 +48,8 @@ class AdminPanelProvider extends PanelProvider
             ->path('admin')
             ->login()
             ->profile(isSimple: false)
-            ->multiFactorAuthentication([AppAuthentication::make()->recoverable()])
+            // Every sign-in is finished with a one-time code e-mailed to the person signing in.
+            ->multiFactorAuthentication([EmailSignInCode::make()], isRequired: true)
             ->brandName('Mohamed Abdo · CMS')
             ->favicon(asset('favicon.svg'))
             ->colors([

@@ -1,3 +1,9 @@
+# public/ is the web root. The project folder above it refuses every request (../.htaccess); this folder is
+# opened again here, so the site works whether or not the host reads that file too.
+<IfModule mod_authz_core.c>
+    Require all granted
+</IfModule>
+
 <IfModule mod_rewrite.c>
     <IfModule mod_negotiation.c>
         Options -MultiViews -Indexes
@@ -22,4 +28,42 @@
     RewriteCond %{REQUEST_FILENAME} !-d
     RewriteCond %{REQUEST_FILENAME} !-f
     RewriteRule ^ index.php [L]
+</IfModule>
+
+# Never list folders.
+Options -Indexes
+
+# Static files: compressed, and cached by browsers. Built assets and fonts carry a content hash in their name,
+# uploaded originals a random name, so they never change and can be kept for a year. Resized copies are
+# re-created in place, so they are kept for a week.
+<IfModule mod_mime.c>
+    AddType text/javascript .js .mjs
+    AddType font/woff2 .woff2
+    AddType image/avif .avif
+    AddType image/webp .webp
+</IfModule>
+
+<IfModule mod_deflate.c>
+    AddOutputFilterByType DEFLATE text/html text/plain text/css text/xml text/javascript application/javascript application/json application/xml image/svg+xml
+</IfModule>
+
+<IfModule mod_headers.c>
+    <FilesMatch "\.(css|js|woff2?|webp|avif|jpe?g|png|svg|ico|pdf)$">
+        Header set X-Content-Type-Options "nosniff"
+    </FilesMatch>
+    <If "%{REQUEST_URI} =~ m#^/build/#">
+        Header set Cache-Control "public, max-age=31536000, immutable"
+    </If>
+    <ElseIf "%{REQUEST_URI} =~ m#^/storage/media/variants/#">
+        Header set Cache-Control "public, max-age=604800"
+    </ElseIf>
+    <ElseIf "%{REQUEST_URI} =~ m#^/storage/media/#">
+        Header set Cache-Control "public, max-age=31536000, immutable"
+    </ElseIf>
+    <ElseIf "%{REQUEST_URI} =~ m#^/(js|css|fonts)/#">
+        Header set Cache-Control "public, max-age=2592000"
+    </ElseIf>
+    <ElseIf "%{REQUEST_URI} =~ m#\.(svg|ico|png|webmanifest)$#">
+        Header set Cache-Control "public, max-age=86400"
+    </ElseIf>
 </IfModule>

@@ -92,8 +92,9 @@ class MediaResource extends Resource
                     ->visible(fn (Media $m) => $m->isImage() && $m->status !== 'processing')
                     ->action(function (Media $m) {
                         $m->forceFill(['status' => 'processing'])->save();
-                        OptimizeImage::dispatch($m->id);
-                        Notification::make()->success()->title(__('Optimisation queued.'))->send();
+                        // Runs right after this response, like a fresh upload: no queue worker is needed.
+                        OptimizeImage::dispatchAfterResponse($m->id);
+                        Notification::make()->success()->title(__('The copies are being re-created. Reload in a few seconds.'))->send();
                     }),
                 Action::make('delete')->label(__('Delete'))->icon('heroicon-o-trash')->color('danger')
                     ->visible(fn (Media $m) => Gate::allows('delete', $m))

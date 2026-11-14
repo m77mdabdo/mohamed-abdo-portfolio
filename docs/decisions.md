@@ -28,3 +28,9 @@
     WebGL, motion or data saving is unavailable, every GPU resource disposed on teardown.
 12. **No Redis, queue or cache servers**: database queue and cache are enough for one site and keep the setup
     to MariaDB only.
+13. **Sign-in code by e-mail** (owner's request, 2026-11-14) instead of an authenticator app: always on for every
+    account, 6 digits, 10 minutes, single use, hashed in the cache, Filament's limits on re-sends and attempts.
+    A real mailer is therefore required in production (`portfolio:preflight` refuses `log`).
+14. **Deploy without extra services**: one cron entry runs the daily backup and drains the database queue
+    (`queue:work --stop-when-empty`), so shared hosting needs no Supervisor; heavy work (image copies,
+    notices) runs right after the response anyway.
