@@ -38,7 +38,17 @@ class Media extends Model
 
     public function url(): string
     {
-        return Storage::disk($this->disk)->url($this->path);
+        return self::publicUrl($this->disk, $this->path);
+    }
+
+    /**
+     * Address of a stored file. Public files use the current site address (whatever port or domain the site
+     * is opened on locally; APP_URL in production, where links are pinned), so images never break when the
+     * local server runs on a different port than APP_URL.
+     */
+    public static function publicUrl(string $disk, string $path): string
+    {
+        return $disk === 'public' ? url('storage/'.ltrim($path, '/')) : Storage::disk($disk)->url($path);
     }
 
     public function altText(?string $locale = null): string
@@ -64,9 +74,7 @@ class Media extends Model
             return null;
         }
 
-        $disk = Storage::disk($this->disk);
-
-        return collect($list)->map(fn ($v) => $disk->url($v['path']).' '.$v['width'].'w')->implode(', ');
+        return collect($list)->map(fn ($v) => self::publicUrl($this->disk, $v['path']).' '.$v['width'].'w')->implode(', ');
     }
 
     public function humanSize(): string

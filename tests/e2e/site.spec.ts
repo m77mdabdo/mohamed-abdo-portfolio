@@ -69,6 +69,19 @@ for (const width of [390, 1440]) {
   })
 }
 
+test('custom cursor stays empty and hidden until a project card is hovered', async ({ browser }) => {
+  const context = await browser.newContext({ viewport: { width: 1440, height: 900 } })
+  const page = await context.newPage()
+  await page.goto('/en')
+  await page.waitForTimeout(2500)
+  await page.mouse.move(700, 400)
+  await page.waitForTimeout(800)
+  const ring = await page.locator('#cring').evaluate(el => ({ text: el.textContent, scale: new DOMMatrix(getComputedStyle(el).transform).a }))
+  expect(ring.text).toBe('')
+  expect(ring.scale).toBeLessThan(0.05)
+  await context.close()
+})
+
 test('reduced motion: everything readable, no 3D, no loader', async ({ browser }) => {
   const context = await browser.newContext({ reducedMotion: 'reduce', viewport: { width: 1440, height: 900 } })
   const page = await context.newPage()
