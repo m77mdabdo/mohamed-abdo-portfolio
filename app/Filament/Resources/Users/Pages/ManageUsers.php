@@ -19,7 +19,7 @@ class ManageUsers extends ManageRecords
                 ->using(function (array $data) {
                     $user = new User(['name' => $data['name'], 'email' => strtolower($data['email']), 'password' => $data['password']]);
                     $user->forceFill(['role' => $data['role'], 'is_active' => $data['is_active'] ?? true])->save();
-                    ActivityLog::record('user_created', $user->email.' ('.$user->role->value.')', 'user:'.$user->id);
+                    ActivityLog::record('user_created', $user->email.' ('.$user->role->label().')', 'user:'.$user->id);
 
                     return $user;
                 }),

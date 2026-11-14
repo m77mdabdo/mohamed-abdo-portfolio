@@ -46,9 +46,11 @@ class ActivityLogResource extends Resource
                 TextColumn::make('created_at')->label(__('When'))->dateTime('Y-m-d H:i', 'Asia/Riyadh')->sortable(),
                 TextColumn::make('user.name')->label(__('Who'))->placeholder(__('System')),
                 TextColumn::make('action')->label(__('Action'))->badge()->formatStateUsing(fn (string $state) => __(str_replace('_', ' ', ucfirst($state)))),
-                TextColumn::make('description')->label(__('What'))->searchable()->wrap(),
+                TextColumn::make('description')->label(__('What'))->searchable()->wrap()
+                    ->formatStateUsing(fn (ActivityLog $record) => $record->displayDescription()),
             ])
-            ->filters([SelectFilter::make('action')->label(__('Action'))->options(fn () => ActivityLog::query()->distinct()->pluck('action', 'action')->all())]);
+            ->filters([SelectFilter::make('action')->label(__('Action'))->options(fn () => ActivityLog::query()->distinct()->pluck('action', 'action')
+                ->map(fn (string $a) => __(str_replace('_', ' ', ucfirst($a))))->all())]);
     }
 
     public static function getPages(): array

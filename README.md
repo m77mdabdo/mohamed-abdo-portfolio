@@ -109,6 +109,10 @@ GSAP: GreenSock Standard "no charge" licence (https://gsap.com/standard-license)
 
 ## Changelog
 
+- Full review pass: Arabic for the remaining dashboard labels (WhatsApp settings, CV view button) and for the
+  Filament 5 strings its Arabic files lack (`lang/vendor/…`); the activity log names subjects in the reader's
+  language; browser checks remove their test message from the local inbox. 40 public pages and 347 files
+  checked: no broken links or images.
 - Sign-in finishes with a one-time code e-mailed to the person (every account, 10 minutes, single use);
   authenticator-app secrets removed. Production readiness: `scripts/deploy.sh`, `.env.production.example`,
   `portfolio:preflight`, compression and browser caching in `public/.htaccess`, backups over host/port as
