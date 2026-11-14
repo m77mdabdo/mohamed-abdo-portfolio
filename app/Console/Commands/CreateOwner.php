@@ -46,7 +46,7 @@ class CreateOwner extends Command
         $user->password = $password;
         $user->forceFill(['role' => Role::Owner, 'is_active' => true, 'email_verified_at' => now()])->save();
 
-        $this->info("Owner account ready: {$user->email}. Sign in at ".url('/admin').' — then enable two-factor sign-in from your profile.');
+        $this->info("Owner account ready: {$user->email}. Sign in at ".url('/admin').' — a one-time code is e-mailed to this address at every sign-in.');
 
         return self::SUCCESS;
     }

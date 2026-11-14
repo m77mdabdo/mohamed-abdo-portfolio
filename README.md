@@ -5,7 +5,7 @@ home with standalone pages, and a complete dashboard where every page, section, 
 text, image and setting is edited, previewed, published and restored without touching code.
 
 - Public site: `/{ar|en}` — home, `/work`, `/about`, `/services`, `/resume`, `/contact`, `/projects/{slug}`
-- Dashboard: `/admin` (Arabic / English, owner and editor roles, optional two-factor sign-in)
+- Dashboard: `/admin` (Arabic / English, owner and editor roles, one-time code by e-mail at every sign-in)
 
 Documentation: [owner guide (Arabic)](docs/owner-guide-ar.md) · [content inventory](docs/content-inventory.md) ·
 [database](docs/database.md) · [decisions](docs/decisions.md) · [verification](docs/verification.md)
@@ -54,8 +54,13 @@ php artisan schedule:work                        # daily backup at 03:30 (Asia/R
 
 To keep them running after a restart on macOS, use `launchd` agents or a terminal tool such as `tmux`; in
 production use Supervisor for `queue:work` and one cron entry: `* * * * * php /path/artisan schedule:run`.
-Production checklist: `APP_ENV=production`, `APP_DEBUG=false`, HTTPS (adds HSTS automatically), a real
-`MAIL_*` configuration, `php artisan optimize`, document root on `public/`. No deployment is configured here.
+## Deploy
+
+Arabic step-by-step guide: [docs/deploy-ar.md](docs/deploy-ar.md). In short: document root on `public/`,
+`.env` from `.env.production.example` (a real mailer is required: sign-in codes are e-mailed), then
+`bash scripts/deploy.sh` (packages, build, backup, migrations, first-time import, caches) and one cron entry
+`* * * * * php artisan schedule:run` (daily backup + queued jobs). `php artisan portfolio:preflight` lists
+anything that still blocks going live and exits non-zero while it does.
 
 ## Content workflow
 
@@ -104,6 +109,11 @@ GSAP: GreenSock Standard "no charge" licence (https://gsap.com/standard-license)
 
 ## Changelog
 
+- Sign-in finishes with a one-time code e-mailed to the person (every account, 10 minutes, single use);
+  authenticator-app secrets removed. Production readiness: `scripts/deploy.sh`, `.env.production.example`,
+  `portfolio:preflight`, compression and browser caching in `public/.htaccess`, backups over host/port as
+  well as socket, queued jobs run from the cron entry, 3D scene skipped on software-only WebGL.
+  Fixed: "Re-create copies" in the media library waited for a queue worker that never ran.
 - Security audit (docs/security-audit-2026-11.md): project folder refuses web requests (.env/.git were served by
   XAMPP Apache), links in e-mails built from APP_URL and only APP_URL's host answered in production, message
   notices fall back to the owner's address, images over 40 megapixels refused.

@@ -6,13 +6,11 @@ use App\Enums\Role;
 use App\Models\ActivityLog;
 use App\Models\User;
 use BackedEnum;
-use Filament\Actions\Action;
 use Filament\Actions\DeleteAction;
 use Filament\Actions\EditAction;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Toggle;
-use Filament\Notifications\Notification;
 use Filament\Resources\Resource;
 use Filament\Schemas\Schema;
 use Filament\Support\Icons\Heroicon;
@@ -69,7 +67,6 @@ class UserResource extends Resource
                 TextColumn::make('name')->label(__('Name'))->description(fn (User $u) => $u->email)->searchable(['name', 'email']),
                 TextColumn::make('role')->label(__('Role'))->badge()->formatStateUsing(fn (Role $state) => $state->label()),
                 IconColumn::make('is_active')->label(__('Active'))->boolean(),
-                IconColumn::make('mfa')->label(__('Two-factor'))->boolean()->state(fn (User $u) => filled($u->app_authentication_secret)),
                 TextColumn::make('last_login_at')->label(__('Last sign-in'))->since()->placeholder('—'),
             ])
             ->recordActions([
@@ -87,13 +84,6 @@ class UserResource extends Resource
 
                     return $record;
                 }),
-                Action::make('resetMfa')->label(__('Reset two-factor'))->icon('heroicon-o-key')->color('warning')
-                    ->visible(fn (User $u) => filled($u->app_authentication_secret) && ! $u->is(auth()->user()))
-                    ->requiresConfirmation()
-                    ->action(function (User $u) {
-                        $u->forceFill(['app_authentication_secret' => null, 'app_authentication_recovery_codes' => null])->save();
-                        Notification::make()->success()->title(__('Two-factor sign-in was reset for this user.'))->send();
-                    }),
                 DeleteAction::make(),
             ]);
     }

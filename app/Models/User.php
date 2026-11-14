@@ -4,20 +4,17 @@ namespace App\Models;
 
 use App\Enums\Role;
 use Database\Factories\UserFactory;
-use Filament\Auth\MultiFactor\App\Contracts\HasAppAuthentication;
-use Filament\Auth\MultiFactor\App\Contracts\HasAppAuthenticationRecovery;
+use Filament\Auth\MultiFactor\Email\Contracts\HasEmailAuthentication;
 use Filament\Models\Contracts\FilamentUser;
 use Filament\Panel;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
-use SensitiveParameter;
 
 /**
  * @property Role $role
- * @property array<int, string>|null $app_authentication_recovery_codes
  */
-class User extends Authenticatable implements FilamentUser, HasAppAuthentication, HasAppAuthenticationRecovery
+class User extends Authenticatable implements FilamentUser, HasEmailAuthentication
 {
     /** @use HasFactory<UserFactory> */
     use HasFactory, Notifiable;
@@ -31,7 +28,7 @@ class User extends Authenticatable implements FilamentUser, HasAppAuthentication
     /** role and is_active are never mass-assignable: they change only through the owner's user management. */
     protected $fillable = ['name', 'email', 'password', 'locale'];
 
-    protected $hidden = ['password', 'remember_token', 'app_authentication_secret', 'app_authentication_recovery_codes'];
+    protected $hidden = ['password', 'remember_token'];
 
     protected function casts(): array
     {
@@ -41,8 +38,6 @@ class User extends Authenticatable implements FilamentUser, HasAppAuthentication
             'password' => 'hashed',
             'is_active' => 'boolean',
             'role' => Role::class,
-            'app_authentication_secret' => 'encrypted',
-            'app_authentication_recovery_codes' => 'encrypted:array',
         ];
     }
 
@@ -56,30 +51,11 @@ class User extends Authenticatable implements FilamentUser, HasAppAuthentication
         return $this->role === Role::Owner;
     }
 
-    public function getAppAuthenticationSecret(): ?string
+    /** Every sign-in is finished with a code sent to this e-mail (App\Auth\EmailSignInCode); it cannot be switched off. */
+    public function hasEmailAuthentication(): bool
     {
-        return $this->app_authentication_secret;
+        return true;
     }
 
-    public function saveAppAuthenticationSecret(#[SensitiveParameter] ?string $secret): void
-    {
-        $this->app_authentication_secret = $secret;
-        $this->save();
-    }
-
-    public function getAppAuthenticationHolderName(): string
-    {
-        return $this->email;
-    }
-
-    public function getAppAuthenticationRecoveryCodes(): ?array
-    {
-        return $this->app_authentication_recovery_codes;
-    }
-
-    public function saveAppAuthenticationRecoveryCodes(#[SensitiveParameter] ?array $codes): void
-    {
-        $this->app_authentication_recovery_codes = $codes;
-        $this->save();
-    }
+    public function toggleEmailAuthentication(bool $condition): void {}
 }

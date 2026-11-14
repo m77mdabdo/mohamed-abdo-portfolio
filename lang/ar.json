@@ -265,7 +265,6 @@
     "Open editor": "فتح المحرر",
     "Open in a new tab": "فتح في تبويب جديد",
     "Opening greeting screen": "شاشة التحية الافتتاحية",
-    "Optimisation queued.": "أُضيف التحسين إلى قائمة الانتظار.",
     "Optimised copies": "النسخ المحسّنة",
     "Order": "الترتيب",
     "Organisation and city": "الجهة والمدينة",
@@ -332,7 +331,6 @@
     "Read": "مقروءة",
     "Read by screen readers and search engines. Describe what the image shows.": "تقرؤه قارئات الشاشة ومحركات البحث. صِف ما تُظهره الصورة.",
     "Received": "تاريخ الوصول",
-    "Reset two-factor": "إعادة ضبط التحقق بخطوتين",
     "Restore and publish": "استعادة ونشر",
     "Restore to draft": "استعادة كمسودة",
     "Restored": "استعادة",
@@ -438,8 +436,6 @@
     "Title in search results (leave empty to use the page title)": "العنوان في نتائج البحث (اتركه فارغاً لاستخدام عنوان الصفحة)",
     "Title, e-mail, social links and the contact form.": "العنوان والبريد والروابط الاجتماعية ونموذج التواصل.",
     "Turquoise (live)": "تركواز (منشور)",
-    "Two-factor": "التحقق بخطوتين",
-    "Two-factor sign-in was reset for this user.": "أُعيد ضبط التحقق بخطوتين لهذا المستخدم.",
     "Type": "النوع",
     "Type of project (e.g. Corporate website & CMS)": "نوع المشروع (مثل موقع شركة ونظام إدارة محتوى)",
     "Unknown section type: :type": "نوع قسم غير معروف: :type",
@@ -480,5 +476,11 @@
     "never published": "لم يُنشر أبداً",
     "published": "نشر",
     "restored": "استعادة",
-    "The image is too large (maximum :size megapixels).": "الصورة كبيرة جداً (الحد الأقصى :size ميغابكسل)."
+    "The image is too large (maximum :size megapixels).": "الصورة كبيرة جداً (الحد الأقصى :size ميغابكسل).",
+    "Your dashboard sign-in code": "كود الدخول إلى لوحة التحكم",
+    "Hello :name,": "مرحباً :name،",
+    "Use this code to finish signing in to the dashboard:": "استخدم هذا الكود لإكمال الدخول إلى لوحة التحكم:",
+    "The code works once and expires in :minutes minutes.": "الكود يعمل مرة واحدة وتنتهي صلاحيته بعد :minutes دقائق.",
+    "If you did not try to sign in, ignore this e-mail and change your password.": "إن لم تحاول الدخول فتجاهل هذه الرسالة وغيّر كلمة المرور.",
+    "The copies are being re-created. Reload in a few seconds.": "يُعاد إنشاء النسخ الآن. حدّث الصفحة بعد ثوانٍ."
 }

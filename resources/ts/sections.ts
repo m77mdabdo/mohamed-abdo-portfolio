@@ -11,10 +11,18 @@ const $ = <T extends Element = HTMLElement>(root: ParentNode, sel: string) => ro
 const $$ = <T extends Element = HTMLElement>(root: ParentNode, sel: string) => Array.from(root.querySelectorAll<T>(sel as string))
 const masked = (el: Element, ctx: Ctx) => gsap.from(el.querySelectorAll('.w'), { yPercent: 110, rotate: 4 * -ctx.dir, duration: 1.1, stagger: 0.035, ease: 'expo.out', scrollTrigger: { trigger: el, start: 'top 85%' } })
 
+/* WebGL with a real GPU. Software renderers (no GPU acceleration) draw the scene on the CPU and freeze the page,
+   so those devices, and phones that report very little memory, get the light CSS fallback instead. */
 function webglAvailable(): boolean {
   try {
+    if (((navigator as Navigator & { deviceMemory?: number }).deviceMemory ?? 8) <= 2) return false
     const c = document.createElement('canvas')
-    return !!(c.getContext('webgl2') || c.getContext('webgl'))
+    const gl = (c.getContext('webgl2') || c.getContext('webgl')) as WebGLRenderingContext | null
+    if (!gl) return false
+    const info = gl.getExtension('WEBGL_debug_renderer_info')
+    const renderer = String(info ? gl.getParameter(info.UNMASKED_RENDERER_WEBGL) : gl.getParameter(gl.RENDERER))
+    gl.getExtension('WEBGL_lose_context')?.loseContext()
+    return !/swiftshader|llvmpipe|softpipe|software|basic render/i.test(renderer)
   } catch { return false }
 }
 

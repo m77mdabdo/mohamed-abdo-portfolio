@@ -20,7 +20,7 @@ set_env() {
   local key="$1" value="$2"
   if grep -q "^${key}=" .env; then
     # use a separator that cannot appear in the values we write
-    sed -i '' "s|^${key}=.*|${key}=${value}|" .env
+    sed -i.bak "s|^${key}=.*|${key}=${value}|" .env && rm -f .env.bak   # works with GNU and BSD sed
   else
     printf '%s=%s\n' "$key" "$value" >> .env
   fi
