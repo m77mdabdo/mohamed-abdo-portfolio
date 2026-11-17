@@ -68,6 +68,10 @@ Arabic step-by-step guide: [docs/deploy-ar.md](docs/deploy-ar.md). In short: doc
 `* * * * * php artisan schedule:run` (daily backup + queued jobs). `php artisan portfolio:preflight` lists
 anything that still blocks going live and exits non-zero while it does.
 
+CI/CD: GitHub Actions runs tests, Pint, Larastan, the TypeScript check, the front-end build and
+`composer audit`/`npm audit` on every push and pull request; deployment over SSH is off until enabled
+([docs/ci-cd.md](docs/ci-cd.md)).
+
 ## Content workflow
 
 Saving in the dashboard changes the **draft** only. **Preview** opens a signed 30-minute link (signed-in staff
@@ -115,6 +119,9 @@ GSAP: GreenSock Standard "no charge" licence (https://gsap.com/standard-license)
 
 ## Changelog
 
+- Security hardening: the profile page now enforces the 12-character password rule, the dashboard sends a
+  baseline Content-Security-Policy, responses no longer reveal the PHP version. GitHub Actions CI (tests, lint,
+  audit, build) and opt-in SSH deployment; `php artisan test` works on a fresh clone (`tests/Unit`).
 - One-click start (Start Portfolio.command); images load on any local port; custom cursor no longer
   shows a stray "1" (a settings attribute collided with the hover selector); clear page under old PHP.
 - Full review pass: Arabic for the remaining dashboard labels (WhatsApp settings, CV view button) and for the
