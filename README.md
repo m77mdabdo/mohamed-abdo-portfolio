@@ -1,4 +1,4 @@
-# محمد عبده — Portfolio
+# Mohamed Abdo — Portfolio
 
 Bilingual (Arabic / English) portfolio of Mohamed Abdo, software engineer in Riyadh — a cinematic one-page
 home with standalone pages, and a complete dashboard where every page, section, project, list, menu,
