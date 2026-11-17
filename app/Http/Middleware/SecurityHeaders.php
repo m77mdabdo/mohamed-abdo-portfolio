@@ -24,6 +24,9 @@ class SecurityHeaders
         $response = $next($request);
         $headers = $response->headers;
 
+        // PHP adds "X-Powered-By: PHP/8.x.y" itself (expose_php); do not tell visitors the exact version.
+        header_remove('X-Powered-By');
+
         $headers->set('X-Content-Type-Options', 'nosniff');
         $headers->set('X-Frame-Options', 'DENY');
         $headers->set('Referrer-Policy', 'strict-origin-when-cross-origin');
