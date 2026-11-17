@@ -37,6 +37,7 @@ use Illuminate\Support\Facades\Event;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\RateLimiter;
 use Illuminate\Support\ServiceProvider;
+use Illuminate\Validation\Rules\Password;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -56,6 +57,9 @@ class AppServiceProvider extends ServiceProvider
     {
         // Links in e-mails always point at APP_URL, whatever Host header a request carried.
         CanonicalUrl::apply($this->app);
+
+        // One password rule everywhere, including the dashboard profile page (which uses Password::default()).
+        Password::defaults(fn () => Password::min(12)->letters()->numbers());
 
         // Owner-only abilities (editors work on drafts; only the owner puts them live or manages people).
         // Model policies (deny by default for anything not listed).
