@@ -5,6 +5,8 @@ namespace Tests\Feature;
 use App\Content\Media\MediaLibrary;
 use App\Filament\Pages\Settings\EditIdentity;
 use App\Filament\Resources\Pages\Pages\EditPageContent;
+use App\Filament\Resources\Pages\Pages\ListPages;
+use App\Filament\Resources\Projects\Pages\ListProjects;
 use App\Jobs\OptimizeImage;
 use App\Models\Media;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -30,6 +32,21 @@ class DashboardEditingTest extends TestCase
             ->assertActionHidden('publish');
 
         $this->get('/en')->assertDontSee('Open to new projects');
+    }
+
+    public function test_lists_show_each_translated_title_once_in_the_dashboard_language(): void
+    {
+        $this->importReference();
+        $this->actingAs($this->editor());
+        app()->setLocale('en');
+
+        $projects = Livewire::test(ListProjects::class)->html();
+        $this->assertStringContainsString('Creative Mark', $projects);
+        $this->assertStringNotContainsString('Creative Mark, Creative Mark', $projects);
+        $this->assertStringNotContainsString('كريتيف مارك', $projects);
+
+        $pages = Livewire::test(ListPages::class)->html();
+        $this->assertStringNotContainsString('Home, Home', $pages);
     }
 
     public function test_page_editor_form_saves_sections_in_the_order_shown(): void

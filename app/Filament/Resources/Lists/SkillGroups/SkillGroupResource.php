@@ -49,7 +49,7 @@ class SkillGroupResource extends Resource
 
     public static function table(Table $table): Table
     {
-        return CollectionTable::make($table, [TextColumn::make('name')->label(__('Group'))->formatStateUsing(fn ($record) => $record->tr('name'))->description(fn ($record) => implode(' · ', $record->items ?? []))], true);
+        return CollectionTable::make($table, [TextColumn::make('name')->label(__('Group'))->state(fn ($record) => $record->tr('name'))->description(fn ($record) => implode(' · ', $record->items ?? []))], true);
     }
 
     public static function getPages(): array

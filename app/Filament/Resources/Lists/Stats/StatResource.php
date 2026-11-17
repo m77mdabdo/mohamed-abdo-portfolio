@@ -49,7 +49,7 @@ class StatResource extends Resource
 
     public static function table(Table $table): Table
     {
-        return CollectionTable::make($table, [TextColumn::make('value')->label(__('Number')), TextColumn::make('label')->label(__('Label'))->formatStateUsing(fn ($record) => $record->tr('label'))], true);
+        return CollectionTable::make($table, [TextColumn::make('value')->label(__('Number')), TextColumn::make('label')->label(__('Label'))->state(fn ($record) => $record->tr('label'))], true);
     }
 
     public static function getPages(): array

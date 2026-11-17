@@ -50,7 +50,7 @@ class ServiceResource extends Resource
 
     public static function table(Table $table): Table
     {
-        return CollectionTable::make($table, [TextColumn::make('number')->label('#'), TextColumn::make('title')->label(__('Title'))->formatStateUsing(fn ($record) => $record->tr('title'))], true);
+        return CollectionTable::make($table, [TextColumn::make('number')->label('#'), TextColumn::make('title')->label(__('Title'))->state(fn ($record) => $record->tr('title'))], true);
     }
 
     public static function getPages(): array
