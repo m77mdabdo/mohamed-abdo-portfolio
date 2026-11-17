@@ -49,6 +49,10 @@ class SecurityHeaders
                 "object-src 'none'",
                 "worker-src 'self' blob:",
             ]));
+        } elseif ($isAdmin && ! $headers->has('Content-Security-Policy')) {
+            // The dashboard UI library needs inline scripts and eval, so scripts stay unrestricted here;
+            // these directives still block injected <base>, plugins and framing.
+            $headers->set('Content-Security-Policy', "base-uri 'self'; object-src 'none'; frame-ancestors 'none'");
         }
 
         return $response;
