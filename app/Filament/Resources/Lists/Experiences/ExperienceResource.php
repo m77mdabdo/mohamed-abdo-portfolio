@@ -51,7 +51,7 @@ class ExperienceResource extends Resource
 
     public static function table(Table $table): Table
     {
-        return CollectionTable::make($table, [TextColumn::make('role')->label(__('Role'))->formatStateUsing(fn ($record) => $record->tr('role'))->description(fn ($record) => $record->tr('organization')), TextColumn::make('period')->label(__('Period'))->formatStateUsing(fn ($record) => $record->tr('period'))], true);
+        return CollectionTable::make($table, [TextColumn::make('role')->label(__('Role'))->state(fn ($record) => $record->tr('role'))->description(fn ($record) => $record->tr('organization')), TextColumn::make('period')->label(__('Period'))->state(fn ($record) => $record->tr('period'))], true);
     }
 
     public static function getPages(): array

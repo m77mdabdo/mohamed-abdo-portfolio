@@ -26,10 +26,10 @@ final class ProjectsTable
             ->modifyQueryUsing(fn ($query) => $query->with('cover'))
             ->columns([
                 ImageColumn::make('cover_thumb')->label('')->state(fn (Project $r) => $r->cover?->url())->imageHeight(40)->imageWidth(64),
-                TextColumn::make('title')->label(__('Project'))->formatStateUsing(fn (Project $r) => $r->tr('title'))
+                TextColumn::make('title')->label(__('Project'))->state(fn (Project $r) => $r->tr('title'))
                     ->description(fn (Project $r) => $r->tr('kind'))
                     ->searchable(query: fn ($q, string $s) => $q->where('title', 'like', "%{$s}%")->orWhere('slug', 'like', "%{$s}%")),
-                TextColumn::make('status_label')->label(__('Status on site'))->formatStateUsing(fn (Project $r) => $r->tr('status_label'))->badge()
+                TextColumn::make('status_label')->label(__('Status on site'))->state(fn (Project $r) => $r->tr('status_label'))->badge()
                     ->color(fn (Project $r) => $r->status_tone === 'live' ? 'info' : 'gray'),
                 ToggleColumn::make('is_featured')->label(__('Featured')),
                 ToggleColumn::make('is_visible')->label(__('Visible')),

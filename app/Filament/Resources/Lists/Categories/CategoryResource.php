@@ -47,7 +47,7 @@ class CategoryResource extends Resource
 
     public static function table(Table $table): Table
     {
-        return CollectionTable::make($table, [TextColumn::make('name')->label(__('Name'))->formatStateUsing(fn ($record) => $record->tr('name'))->description(fn ($record) => $record->slug), TextColumn::make('projects_count')->counts('projects')->label(__('Projects'))], false);
+        return CollectionTable::make($table, [TextColumn::make('name')->label(__('Name'))->state(fn ($record) => $record->tr('name'))->description(fn ($record) => $record->slug), TextColumn::make('projects_count')->counts('projects')->label(__('Projects'))], false);
     }
 
     public static function getPages(): array

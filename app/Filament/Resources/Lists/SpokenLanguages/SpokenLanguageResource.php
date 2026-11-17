@@ -48,7 +48,7 @@ class SpokenLanguageResource extends Resource
 
     public static function table(Table $table): Table
     {
-        return CollectionTable::make($table, [TextColumn::make('name')->label(__('Language'))->formatStateUsing(fn ($record) => $record->tr('name'))->description(fn ($record) => $record->tr('level'))], true);
+        return CollectionTable::make($table, [TextColumn::make('name')->label(__('Language'))->state(fn ($record) => $record->tr('name'))->description(fn ($record) => $record->tr('level'))], true);
     }
 
     public static function getPages(): array

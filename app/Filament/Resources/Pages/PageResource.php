@@ -73,7 +73,7 @@ class PageResource extends Resource
             ->reorderable('sort_order')
             ->columns([
                 TextColumn::make('title')->label(__('Page'))
-                    ->formatStateUsing(fn (Page $record) => $record->tr('title'))
+                    ->state(fn (Page $record) => $record->tr('title'))
                     ->description(fn (Page $record) => $record->isHome() ? '/' : '/'.$record->slug)
                     ->searchable(query: fn ($query, string $search) => $query->where('title', 'like', "%{$search}%")),
                 TextColumn::make('sections_count')->counts('sections')->label(__('Sections'))->badge(),

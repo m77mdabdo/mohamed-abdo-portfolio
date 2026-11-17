@@ -40,9 +40,11 @@ All screenshots are taken from the running application with the original content
 
 ### Dashboard (`/admin`)
 
-| Home page editor: sections in visible order (AR) | Pages |
+| Overview (AR) | Pages: an editor for every public page |
 | --- | --- |
-| <img src="docs/screenshots/admin-home-editor-ar.webp" alt="Home page editor in the dashboard, Arabic"> | <img src="docs/screenshots/admin-pages-en.webp" alt="Pages list in the dashboard"> |
+| <img src="docs/screenshots/admin-dashboard-ar.webp" alt="Dashboard overview, Arabic"> | <img src="docs/screenshots/admin-pages-en.webp" alt="Pages list in the dashboard"> |
+| **Home page editor: sections in visible order (AR)** | **Projects: order, featured, visibility, publishing** |
+| <img src="docs/screenshots/admin-home-editor-ar.webp" alt="Home page editor in the dashboard, Arabic"> | <img src="docs/screenshots/admin-projects-en.webp" alt="Projects list in the dashboard"> |
 | **Project editor: draft, preview, publish, history** | **Appearance & motion settings** |
 | <img src="docs/screenshots/admin-project-editor-en.webp" alt="Project editor"> | <img src="docs/screenshots/admin-appearance-en.webp" alt="Appearance and motion settings"> |
 
@@ -238,6 +240,8 @@ GSAP: GreenSock Standard "no charge" licence (<https://gsap.com/standard-license
 
 ## Changelog
 
+- Dashboard lists (pages, projects, shared lists) show each translated title once, in the dashboard language;
+  they used to repeat it ("Home, Home").
 - README with screenshots of the public site and dashboard (desktop and mobile, Arabic and English).
 - Security hardening: the profile page enforces the 12-character password rule, the dashboard sends a baseline
   Content-Security-Policy, responses no longer reveal the PHP version. GitHub Actions CI (tests, lint, audit,
